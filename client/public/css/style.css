@@ -1,0 +1,76 @@
+#player-one-container{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 1em;
+  padding: 1em;
+
+}
+
+#player-two-container{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 1em;
+  padding: 1em;
+
+}
+
+#player-two-table{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 1em;
+  padding: 1em;
+
+}
+
+#player-one-table{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 1em;
+  padding: 1em;
+
+}
+
+.playerCard{
+  grid-column:auto;
+  margin: 1em;
+  padding: 1em;
+  border: 1px;
+  border-style:solid;
+  border-color:black;
+  text-align:center;
+}
+
+#player-one-charactor{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  /* margin: 1em;
+  padding: 1em; */
+
+}
+.player-one{
+  grid-column:3;
+  /* margin: 1em; */
+  /* padding: 1em; */
+  border: 1px;
+  border-style:solid;
+  border-color:black;
+  text-align:center;
+}
+
+#player-two-charactor{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  /* margin: 1em; */
+  /* padding: 1em; */
+
+}
+
+.player-two{
+  grid-column:3;
+  /* margin: 1em; */
+  /* padding: 1em; */
+  border: 1px;
+  border-style:solid;
+  border-color:black;
+  text-align:center;
+}
