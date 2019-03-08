@@ -2,8 +2,17 @@ const PlayerModel = function(deck) {
   this.health = 50;
   this.playerDeck = deck;
   this.needNewCard = false;
+  this.myTurn = false;
 
 }
+
+PlayerModel.prototype.getMyTurn = function () {
+  return this.myTurn;
+};
+
+PlayerModel.prototype.setMyTurn = function (value) {
+  this.myTurn = value;
+};
 PlayerModel.prototype.getNewCard = function (value) {
   this.needNewCard = value;
 };
