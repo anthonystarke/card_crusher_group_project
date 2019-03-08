@@ -1,9 +1,14 @@
-use bucket_list;
+use card_crusher;
 db.dropDatabase();
 
-db.blCollection.insertOne(
-  {
-    name: "Go fishing"
+db.ccCollection.insertMany([
+ {
 
-  }
-);
+ },
+ {
+
+ },
+ {
+   
+ }
+]);
