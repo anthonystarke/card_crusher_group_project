@@ -12,6 +12,10 @@ PlayerModel.prototype.removeCard = function (cardPos) {
   this.playerDeck.splice(cardPos,1);
 };
 
+PlayerModel.prototype.addCard = function (card) {
+  this.playerDeck.push(card);
+};
+
 PlayerModel.prototype.healthLeft = function () {
   return this.health;
 };

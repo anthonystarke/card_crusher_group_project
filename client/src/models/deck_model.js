@@ -3,9 +3,9 @@ const DeckModel = function(){
 
 }
 
-// DeckModel.prototype.chooseRandomCard = function (deck) {
-//
-// };
+DeckModel.prototype.getCard = function (deck) {
+  return deck.splice(this.getRandomInt(deck.length),1);
+};
 
 DeckModel.prototype.getCardType = function () {
 

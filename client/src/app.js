@@ -4,15 +4,19 @@ const DeckModel = require('./models/deck_model.js');
 document.addEventListener('DOMContentLoaded', () => {
   console.log("Jscript Loaded");
   playerTurn = true;
-  playerTurnPassed = false;
+  turns = 0;
+  firstRound = true;
+
   initializeGame();
 
 })
 
 function initializeGame(){
-  const deckModel = new DeckModel();
+  //needs to be moved to game model
+  deckModel = new DeckModel();
 
-  const deck = deckModel.startBuildingDeck();
+  //needs to be moved to game model
+  deck = deckModel.startBuildingDeck();
 
   const player1Deck = deckModel.initializePlayerDecks(deck);
   const player2Deck = deckModel.initializePlayerDecks(deck);
@@ -22,8 +26,10 @@ function initializeGame(){
 
   const startProcess = document.querySelector('#startGame');
 
+
   startProcess.addEventListener('click',() => {
-    mainGameLoop(player1,player2)
+    // mainGameLoop(player1,player2)
+    setInterval(()=>{mainGameLoop(player1,player2)},500);
   });
 }
 
@@ -38,14 +44,21 @@ function sleep(milliseconds) {
 
 function mainGameLoop(player1,player2){
 
+  console.log("Rendering");
+
   renderCards(player1,player2);
   renderPlayers(player1,player2);
 
   if(playerTurn === false)
   {
+    // if(firstRound === false){
+    //   player2.addCard(deckModel.getCard(deck));
+    // }
+
     aiAction(player2, player1);
-    sleep(1000);
-    mainGameLoop(player1,player2);
+    // sleep(1000);
+    // mainGameLoop(player1,player2);
+    firstRound = false;
   }
 }
 
@@ -90,7 +103,6 @@ function renderPlayers(player1,player2){
   playerTwoBase.appendChild(playerTwoFace);
   playerTwoFace.classList.add("player-two");
   playerTwoFace.textContent = `Player Two Health: ${player2.healthLeft()}`;
-
 }
 
 function renderCards(player1,player2){
@@ -133,12 +145,11 @@ function renderCards(player1,player2){
         {
           cardPos = evt.target.parentNode.id
           playerAction(cardPos,player1,player2)
-          // cardAction(cardPos,player1,player2)
         } else {
           cardPos = evt.target.id
           playerAction(cardPos,player1,player2)
-          // cardAction(cardPos,player1,player2)
         }
+        turn = 1;
         mainGameLoop(player1,player2);
       }
     })
