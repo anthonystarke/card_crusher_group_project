@@ -46,14 +46,23 @@ function mainGameLoop(player1,player2){
 
   console.log("Rendering");
 
+  if(playerTurn === true && player1.getNewCardStatus() === true)
+  {
+    player1.addCard(deckModel.getCard(deck));
+    // console.log(deckModel.getCard(deck))
+    player1.getNewCard(false);
+  }
+
   renderCards(player1,player2);
   renderPlayers(player1,player2);
 
   if(playerTurn === false)
   {
-    // if(firstRound === false){
-    //   player2.addCard(deckModel.getCard(deck));
-    // }
+    if(player2.getNewCardStatus() === true)
+    {
+      player2.addCard(deckModel.getCard(deck));
+      player2.getNewCard(false);
+    }
 
     aiAction(player2, player1);
     // sleep(1000);
@@ -83,6 +92,7 @@ function getRandomInt(max) {
 function aiAction(self,enemy){
   const randomChoice = getRandomInt(self.accessDeck().length-1);
   cardAction(randomChoice,self,enemy);
+  self.getNewCard(true);
   playerTurn = true;
 }
 
@@ -149,7 +159,9 @@ function renderCards(player1,player2){
           cardPos = evt.target.id
           playerAction(cardPos,player1,player2)
         }
-        turn = 1;
+        turns = 1;
+        player1.getNewCard(true);
+        console.log(player1.getNewCardStatus());
         mainGameLoop(player1,player2);
       }
     })

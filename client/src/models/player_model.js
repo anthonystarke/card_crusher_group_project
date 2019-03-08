@@ -1,8 +1,17 @@
 const PlayerModel = function(deck) {
   this.health = 50;
   this.playerDeck = deck;
+  this.needNewCard = false;
 
 }
+PlayerModel.prototype.getNewCard = function (value) {
+  this.needNewCard = value;
+};
+
+PlayerModel.prototype.getNewCardStatus = function () {
+  return this.needNewCard;
+};
+
 
 PlayerModel.prototype.accessDeck = function () {
   return this.playerDeck;

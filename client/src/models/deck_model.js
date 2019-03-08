@@ -4,7 +4,8 @@ const DeckModel = function(){
 }
 
 DeckModel.prototype.getCard = function (deck) {
-  return deck.splice(this.getRandomInt(deck.length),1);
+  const card = deck.splice(this.getRandomInt(deck.length),1)[0];
+  return card;
 };
 
 DeckModel.prototype.getCardType = function () {
