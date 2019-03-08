@@ -1,6 +1,6 @@
-# Games Hub
+# Card Battle Game
 
-Games Hub is a full stack JavaScript application with an Express server and MongoDB database.
+Card Battle Game is a full stack JavaScript application with an Express server and MongoDB database.
 
 ## Getting Started
 
