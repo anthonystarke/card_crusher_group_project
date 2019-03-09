@@ -13,10 +13,10 @@ app.use(express.static(publicPath));
 
 MongoClient.connect('mongodb://localhost:27017')
  .then((client) => {
-   const db = client.db('bucketlist');
+   const db = client.db('card_crusher');
    const ccCollection = db.collection('ccCollection');
    const ccRouter = createRouter(ccCollection);
-   app.use('/api/bucketlist', ccRouter);
+   app.use('/api/cardcrusher', ccRouter);
  })
  .catch(console.err);
 
