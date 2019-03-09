@@ -103,7 +103,7 @@ function renderPlayers(player1,player2){
 }
 function createClickEvent(object,player1,player2){
   object.addEventListener('click', (evt) => {
-    const deckModel = new DeckModel();
+    // const deckModel = new DeckModel();
     if(player1.getMyTurn() === true){
       if(evt.target.className.includes('card'))
       {
@@ -114,8 +114,7 @@ function createClickEvent(object,player1,player2){
         playerAction(cardPos,player1,player2)
       }
       player1.getNewCard(true);
-      console.log(player1.getNewCardStatus());
-      mainGameLoop(player1,player2);
+      // console.log(player1.getNewCardStatus());
     }
   })
 }
@@ -150,24 +149,7 @@ function renderCards(player1,player2){
     cardDefence.textContent = `Defence ${card["defence"]}`;
     playerBox.appendChild(cardDefence);
     createClickEvent(playerBox,player1,player2);
-    // playerBox.addEventListener('click', (evt) => {
-    //   const deckModel = new DeckModel();
-    //
-    //   if(player1.getMyTurn() === true){
-    //
-    //     if(evt.target.className.includes('card'))
-    //     {
-    //       cardPos = evt.target.parentNode.id
-    //       playerAction(cardPos,player1,player2)
-    //     } else {
-    //       cardPos = evt.target.id
-    //       playerAction(cardPos,player1,player2)
-    //     }
-    //     player1.getNewCard(true);
-    //     console.log(player1.getNewCardStatus());
-        // mainGameLoop(player1,player2);
-    //   }
-    // })
+
   })
   if(player1TD || player1TD.length > 0){
     player1TD.forEach((card,index) => {
