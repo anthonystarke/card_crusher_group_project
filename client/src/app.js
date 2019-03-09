@@ -108,7 +108,7 @@ function renderPlayers(player1,player2){
 }
 function createClickEvent(object,player1,player2){
   object.addEventListener('click', (evt) => {
-    const deckModel = new DeckModel();
+    // const deckModel = new DeckModel();
     if(player1.getMyTurn() === true){
       if(evt.target.className.includes('card'))
       {
@@ -119,11 +119,11 @@ function createClickEvent(object,player1,player2){
         playerAction(cardPos,player1,player2)
       }
       player1.getNewCard(true);
-      console.log(player1.getNewCardStatus());
-      mainGameLoop(player1,player2);
+      // console.log(player1.getNewCardStatus());
     }
   })
 }
+<<<<<<< HEAD
 // function renderCards(player1,player2){
 //   const playerOneStage = document.querySelector("#player-one-container");
 //   const playerOneTable = document.querySelector('#player-one-table');
@@ -233,3 +233,97 @@ function createClickEvent(object,player1,player2){
 //     })
 //   }
 // }
+=======
+function renderCards(player1,player2){
+  const playerOneStage = document.querySelector("#player-one-container");
+  const playerOneTable = document.querySelector('#player-one-table');
+  const playerTwoStage = document.querySelector("#player-two-container");
+  const playerTwoTable = document.querySelector('#player-two-table');
+  playerOneStage.innerHTML = '';
+  playerOneTable.innerHTML = '';
+  playerTwoStage.innerHTML = '';
+  playerTwoTable.innerHTML = '';
+  const player1Deck = player1.accessDeck();
+  const player1TD = player1.accessTD();
+  const player2Deck = player2.accessDeck();
+  const player2TD = player2.accessTD();
+  player1Deck.forEach((card,index) => {
+    const playerBox = document.createElement("div");
+    playerBox.classList.add('playerCard')
+    playerBox.setAttribute("id", index);
+    playerOneStage.appendChild(playerBox);
+    const cardName = document.createElement("h3");
+    cardName.classList.add('cardName')
+    cardName.textContent = card["type"];
+    playerBox.appendChild(cardName);
+    const cardAttack = document.createElement("h5");
+    cardAttack.classList.add('cardAttack')
+    cardAttack.textContent = `Attack ${card["attack"]}`;
+    playerBox.appendChild(cardAttack);
+    const cardDefence = document.createElement("h5");
+    cardDefence.classList.add('cardDefence')
+    cardDefence.textContent = `Defence ${card["defence"]}`;
+    playerBox.appendChild(cardDefence);
+    createClickEvent(playerBox,player1,player2);
+
+  })
+  if(player1TD || player1TD.length > 0){
+    player1TD.forEach((card,index) => {
+      const playerBox = document.createElement("div");
+      playerBox.classList.add('playerCard')
+      playerBox.setAttribute("id", index);
+      playerOneTable.appendChild(playerBox);
+      const cardName = document.createElement("h3");
+      cardName.classList.add('cardName')
+      cardName.textContent = card["type"];
+      playerBox.appendChild(cardName);
+      const cardAttack = document.createElement("h5");
+      cardAttack.classList.add('cardAttack')
+      cardAttack.textContent = `Attack ${card["attack"]}`;
+      playerBox.appendChild(cardAttack);
+      const cardDefence = document.createElement("h5");
+      cardDefence.classList.add('cardDefence')
+      cardDefence.textContent = `Defence ${card["defence"]}`;
+      playerBox.appendChild(cardDefence);
+    })
+  }
+  player2Deck.forEach((card,index) => {
+    const playerBox = document.createElement("div");
+    playerBox.classList.add('playerCard')
+    playerBox.setAttribute("id", index);
+    playerTwoStage.appendChild(playerBox);
+    const cardName = document.createElement("h3");
+    cardName.classList.add('cardName')
+    cardName.textContent = card["type"];
+    playerBox.appendChild(cardName);
+    const cardAttack = document.createElement("h5");
+    cardAttack.classList.add('cardAttack')
+    cardAttack.textContent = `Attack ${card["attack"]}`;
+    playerBox.appendChild(cardAttack);
+    const cardDefence = document.createElement("h5");
+    cardDefence.classList.add('cardDefence')
+    cardDefence.textContent = `Defence ${card["defence"]}`;
+    playerBox.appendChild(cardDefence);
+  })
+  if(player2TD || player2TD.length > 0){
+    player2TD.forEach((card,index) => {
+      const playerBox = document.createElement("div");
+      playerBox.classList.add('playerCard')
+      playerBox.setAttribute("id", index);
+      playerTwoTable.appendChild(playerBox);
+      const cardName = document.createElement("h3");
+      cardName.classList.add('cardName')
+      cardName.textContent = card["type"];
+      playerBox.appendChild(cardName);
+      const cardAttack = document.createElement("h5");
+      cardAttack.classList.add('cardAttack')
+      cardAttack.textContent = `Attack ${card["attack"]}`;
+      playerBox.appendChild(cardAttack);
+      const cardDefence = document.createElement("h5");
+      cardDefence.classList.add('cardDefence')
+      cardDefence.textContent = `Defence ${card["defence"]}`;
+      playerBox.appendChild(cardDefence);
+    })
+  }
+}
+>>>>>>> develop
