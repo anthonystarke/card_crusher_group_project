@@ -11,21 +11,24 @@ const GameModel = function(){
   const player1Hand = deckModel.initializePlayerDecks(this.deck);
   const player2Hand = deckModel.initializePlayerDecks(this.deck);
 
-  const player1 = new PlayerModel(player1Hand);
-  const player2 = new PlayerModel(player2Hand);
+  this.player1 = new PlayerModel(player1Hand);
+  this.player2 = new PlayerModel(player2Hand);
 
-  this.flipCoin(player1,player2); //decide whos turn it is
-  // this.publishData(player1,player2);
-
+  this.flipCoin(this.player1,this.player2); //decide whos turn it is
+  console.log(this.player1.getMyTurn(),this.player2.getMyTurn());
+  // this.publishData(this.player1,this.player2);
 }
 
 GameModel.prototype.bindEvents = function () {
-  // PubSub.subscribe('',(evt)=>{
-  //
-  //
-  // });
-  //pubsub starts game loop
+  PubSub.subscribe('GameView:Start-Game',(evt)=>{
+    this.publishData(this.player1,this.player2);
+    setInterval(()=>{this.mainGameLoop(this.player1,this.player2)},250);
+  });
+  PubSub.subscribe('GameView:Card-Clicked',(evt)=>{
 
+    this.playerAction(evt.detail,this.player1,this.player2);
+  });
+  //pubsub starts game loop
 };
 
 GameModel.prototype.publishData = function (player1,player2) {
@@ -33,12 +36,12 @@ GameModel.prototype.publishData = function (player1,player2) {
     player1: player1,
     player2: player2
   };
-  PubSub.publish("GameModel:Sending-PlayerData");
+  PubSub.publish("GameModel:Sending-PlayerData",combine);
   // console.log(combine);
-
 };
 
-GameModel.prototype.mainGameLoop = function (player1, player2) {
+GameModel.prototype.mainGameLoop = function (player1,player2) {
+  const deckModel = new DeckModel();
 
   if(player1.getMyTurn() === true && player1.getNewCardStatus() === true)
   {
@@ -53,13 +56,13 @@ GameModel.prototype.mainGameLoop = function (player1, player2) {
       player2.addCard(deckModel.getCard(this.deck));
       player2.getNewCard(false);
     }
-    if(intervalTimer > getRandomInt(6))
+    if(this.intervalTimer > 6)
     {
-      intervalTimer = 0;
+      this.intervalTimer = 0;
       this.aiAction(player2, player1);
-      firstRound = false;
+      this.publishData(player1,player2);
     } else {
-      intervalTimer += 1;
+      this.intervalTimer += 1;
     }
   }
 };
@@ -77,6 +80,7 @@ GameModel.prototype.playerAction = function(cardPos,attacker,defender){
     this.cardAction(cardPos,attacker,defender);
     this.changeTurns(attacker,defender);
     this.publishData(attacker,defender);
+    attacker.getNewCard(true);
 };
 
 GameModel.prototype.changeTurns = function(endTurn,startTurn){
