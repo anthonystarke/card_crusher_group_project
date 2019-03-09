@@ -28,6 +28,7 @@ function initializeGame(){
   const startGame = document.querySelector('#startGame');
 
   startGame.addEventListener('click',() => {
+    // mainGameLoop(player1,player2);
     interval = setInterval(()=>{mainGameLoop(player1,player2)},250);
     startGame.remove();
   });
@@ -61,6 +62,9 @@ function mainGameLoop(player1,player2){
     {
       intervalTimer = 0;
       aiAction(player2, player1);
+      // renderCards(player1,player2);
+      // renderPlayers(player1,player2);
+
       firstRound = false;
     } else {
       intervalTimer += 1;
@@ -69,7 +73,7 @@ function mainGameLoop(player1,player2){
 }
 
 function flipCoin(player1,player2){
-  const choice = getRandomInt(3);
+  const choice = getRandomInt(2);
 
   if(choice === 0){
     player1.setMyTurn(true);
@@ -81,9 +85,11 @@ function flipCoin(player1,player2){
 function playerAction(cardPos,attacker,defender){
 
     cardAction(cardPos,attacker,defender);
-    playerTurn = false;
-    playerTurnPassed = true;
+    // playerTurn = false;
+    // playerTurnPassed = true;
     changeTurns(attacker,defender);
+    // renderCards(player1,player2);
+    // renderPlayers(player1,player2);
 }
 
 function changeTurns(endTurn,startTurn){
@@ -196,24 +202,6 @@ function renderCards(player1,player2){
 
     createClickEvent(playerBox,player1,player2);
 
-    // playerBox.addEventListener('click', (evt) => {
-    //   const deckModel = new DeckModel();
-    //
-    //   if(player1.getMyTurn() === true){
-    //
-    //     if(evt.target.className.includes('card'))
-    //     {
-    //       cardPos = evt.target.parentNode.id
-    //       playerAction(cardPos,player1,player2)
-    //     } else {
-    //       cardPos = evt.target.id
-    //       playerAction(cardPos,player1,player2)
-    //     }
-    //     player1.getNewCard(true);
-    //     console.log(player1.getNewCardStatus());
-        // mainGameLoop(player1,player2);
-    //   }
-    // })
   })
 
   if(player1TD || player1TD.length > 0){

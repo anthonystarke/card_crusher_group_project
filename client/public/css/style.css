@@ -12,6 +12,17 @@
   padding: 0.2em;
 }
 
+#title-main{
+
+  color:red;
+
+}
+#title-main:hover{
+
+  color:black;
+
+}
+
 #player-two-table{
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -26,7 +37,9 @@
   padding: 0.2em;
 }
 
+
 .playerCard{
+  transition: 1s;
   grid-column:auto;
   margin: 0.2em;
   padding: 0.2em;
@@ -34,6 +47,12 @@
   border-style:solid;
   border-color:black;
   text-align:center;
+}
+
+.playerCard:hover{
+  transform: scale(1.1);
+  border-color:red;
+
 }
 
 #player-one-charactor{

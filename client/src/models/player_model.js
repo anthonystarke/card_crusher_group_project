@@ -1,6 +1,6 @@
 const PlayerModel = function(deck) {
   this.health = 10;
-  this.playerDeck = deck;
+  this.playerDeck =  deck;
   this.playerTableDeck = []
   this.needNewCard = false;
   this.myTurn = false;
