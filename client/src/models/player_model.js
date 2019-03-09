@@ -1,11 +1,19 @@
 const PlayerModel = function(deck) {
-  this.health = 50;
+  this.health = 10;
   this.playerDeck = deck;
+  this.playerTableDeck = []
   this.needNewCard = false;
   this.myTurn = false;
 
 }
 
+PlayerModel.prototype.moveToTD = function (cardPos) {
+  this.playerTableDeck.push(this.playerDeck.splice(cardPos,1)[0]);
+};
+
+PlayerModel.prototype.accessTD = function () {
+  return this.playerTableDeck;
+};
 PlayerModel.prototype.getMyTurn = function () {
   return this.myTurn;
 };
@@ -20,7 +28,6 @@ PlayerModel.prototype.getNewCard = function (value) {
 PlayerModel.prototype.getNewCardStatus = function () {
   return this.needNewCard;
 };
-
 
 PlayerModel.prototype.accessDeck = function () {
   return this.playerDeck;
