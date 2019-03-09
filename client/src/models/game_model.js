@@ -47,6 +47,7 @@ GameModel.prototype.mainGameLoop = function (player1,player2) {
   {
     player1.addCard(deckModel.getCard(this.deck));
     player1.getNewCard(false);
+    this.publishData(this.player1,this.player2);
   }
 
   if(player2.getMyTurn() === true)
@@ -55,6 +56,8 @@ GameModel.prototype.mainGameLoop = function (player1,player2) {
     {
       player2.addCard(deckModel.getCard(this.deck));
       player2.getNewCard(false);
+      this.publishData(this.player1,this.player2);
+
     }
     if(this.intervalTimer > 6)
     {
