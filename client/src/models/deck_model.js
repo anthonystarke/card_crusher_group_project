@@ -1,6 +1,5 @@
 const DeckModel = function(){
 
-
 }
 
 DeckModel.prototype.getCard = function (deck) {

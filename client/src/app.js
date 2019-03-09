@@ -57,7 +57,7 @@ function mainGameLoop(player1,player2){
       player2.getNewCard(false);
     }
 
-    if(intervalTimer > 6)
+    if(intervalTimer > getRandomInt(6))
     {
       intervalTimer = 0;
       aiAction(player2, player1);
@@ -80,13 +80,10 @@ function flipCoin(player1,player2){
 
 function playerAction(cardPos,attacker,defender){
 
-    // attacker.moveToTD(cardPos);
-    // console.log(attacker.accessTD());
     cardAction(cardPos,attacker,defender);
     playerTurn = false;
     playerTurnPassed = true;
     changeTurns(attacker,defender);
-
 }
 
 function changeTurns(endTurn,startTurn){
@@ -134,6 +131,28 @@ function renderPlayers(player1,player2){
   playerTwoFace.textContent = `Player Two Health: ${player2.healthLeft()}`;
 }
 
+function createClickEvent(object,player1,player2){
+
+  object.addEventListener('click', (evt) => {
+    const deckModel = new DeckModel();
+
+    if(player1.getMyTurn() === true){
+
+      if(evt.target.className.includes('card'))
+      {
+        cardPos = evt.target.parentNode.id
+        playerAction(cardPos,player1,player2)
+      } else {
+        cardPos = evt.target.id
+        playerAction(cardPos,player1,player2)
+      }
+      player1.getNewCard(true);
+      console.log(player1.getNewCardStatus());
+      mainGameLoop(player1,player2);
+    }
+  })
+}
+
 function renderCards(player1,player2){
 
   const playerOneStage = document.querySelector("#player-one-container");
@@ -147,7 +166,6 @@ function renderCards(player1,player2){
 
   playerTwoStage.innerHTML = '';
   playerTwoTable.innerHTML = '';
-
 
   const player1Deck = player1.accessDeck();
   const player1TD = player1.accessTD();
@@ -176,27 +194,27 @@ function renderCards(player1,player2){
     cardDefence.textContent = `Defence ${card["defence"]}`;
     playerBox.appendChild(cardDefence);
 
-    playerBox.addEventListener('click', (evt) => {
-      const deckModel = new DeckModel();
+    createClickEvent(playerBox,player1,player2);
 
-      if(player1.getMyTurn() === true){
-
-        if(evt.target.className.includes('card'))
-        {
-          cardPos = evt.target.parentNode.id
-          playerAction(cardPos,player1,player2)
-        } else {
-          cardPos = evt.target.id
-          playerAction(cardPos,player1,player2)
-        }
-        player1.getNewCard(true);
-        console.log(player1.getNewCardStatus());
-        mainGameLoop(player1,player2);
-      }
-    })
+    // playerBox.addEventListener('click', (evt) => {
+    //   const deckModel = new DeckModel();
+    //
+    //   if(player1.getMyTurn() === true){
+    //
+    //     if(evt.target.className.includes('card'))
+    //     {
+    //       cardPos = evt.target.parentNode.id
+    //       playerAction(cardPos,player1,player2)
+    //     } else {
+    //       cardPos = evt.target.id
+    //       playerAction(cardPos,player1,player2)
+    //     }
+    //     player1.getNewCard(true);
+    //     console.log(player1.getNewCardStatus());
+        // mainGameLoop(player1,player2);
+    //   }
+    // })
   })
-
-  console.log(player1TD,player1TD.length);
 
   if(player1TD || player1TD.length > 0){
 
