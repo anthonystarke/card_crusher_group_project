@@ -1,20 +1,20 @@
-use birds;
+use card_crusher;
 db.dropDatabase();
 
-db.sightings.insertMany([
+db.ccCollection.insertMany([
   {
-    species: "Yellow Wagtail",
-    location: "Sutherland",
-    date: "2017-06-01"
+    name: "Chika",
+    winScore: 10,
+    loseScore: 2
   },
   {
-    species: "Red Kite",
-    location: "Knockshinnoch",
-    date: "2017-01-22"
+    name: "Anthony",
+    winScore: 20,
+    loseScore: 12
   },
   {
-    species: "Little Egret",
-    location: "Seamill",
-    date: "2018-08-15"
+    name: "Hamish",
+    winScore: 230,
+    loseScore: 12
   }
 ]);
