@@ -4,7 +4,7 @@ const RenderView = function (container) {
   this.container = container;
 };
 
-RenderView.prototype.renderPlayerOneCard = function (playerOneStage, card, index) {
+RenderView.prototype.renderPlayerOneCard = function (playerOneStage, player1, card, index) {
   const playerBox = document.createElement("div");
   playerBox.classList.add('playerCard')
   playerBox.setAttribute("id",index);
@@ -24,6 +24,7 @@ RenderView.prototype.renderPlayerOneCard = function (playerOneStage, card, index
   cardDefence.classList.add('cardDefence')
   cardDefence.textContent = `Defence ${card["defence"]}`;
   playerBox.appendChild(cardDefence);
+  this.cardSelect(playerBox, player1);
 };
 
 RenderView.prototype.renderPlayerTwoCard = function (playerTwoStage, card, index) {
@@ -46,7 +47,21 @@ RenderView.prototype.renderPlayerTwoCard = function (playerTwoStage, card, index
   cardDefence.classList.add('cardDefence')
   cardDefence.textContent = `Defence ${card["defence"]}`;
   playerBox.appendChild(cardDefence);
+};
 
+RenderView.prototype.cardSelect = function (playerBox, player1) {
+  playerBox.addEventListener('click', (evt) => {
+    let cardPos;
+      if(player1.getMyTurn() === true){
+          if(evt.target.className.includes('card'))
+            {
+              cardPos = evt.target.parentNode.id
+            } else {
+              cardPos = evt.target.id
+          }
+      }
+    PubSub.publish("GameView:Card-Clicked", cardPos )
+  });
 };
 
 RenderView.prototype.renderPlayerOneTable = function (playerOneTable, card, index) {

@@ -49,7 +49,8 @@ GameView.prototype.renderPlayers = function (players){
     const playerTwoStage = document.querySelector("#player-two-container");
 
     const player1Hand = player1.accessHand();
-    this.renderPlayer1Card(playerOneStage, player1Hand)
+    this.renderPlayer1Card(playerOneStage, player1Hand, player1)
+
     const player2Hand = player2.accessHand();
     this.renderPlayer2Card(playerTwoStage, player2Hand)
   };
@@ -67,11 +68,10 @@ GameView.prototype.renderPlayers = function (players){
     this.renderPlayer2Table(playerTwoTable, player2Field)
   };
 
-  GameView.prototype.renderPlayer1Card = function (playerOneStage, player1Hand) {
+  GameView.prototype.renderPlayer1Card = function (playerOneStage, player1Hand, player1) {
     playerOneStage.innerHTML = '';
     const renderPlayerOneStageView = new RenderView(playerOneStage);
-    player1Hand.forEach((card,index) => renderPlayerOneStageView.renderPlayerOneCard(playerOneStage, card, index));
-    this.cardSelect(card,index);
+    player1Hand.forEach((card,index) => renderPlayerOneStageView.renderPlayerOneCard(playerOneStage, player1, card, index));
   };
 
 
@@ -79,23 +79,6 @@ GameView.prototype.renderPlayers = function (players){
     playerTwoStage.innerHTML = '';
     const renderPlayerTwoStageView = new RenderView(playerTwoStage)
     player2Hand.forEach((card,index) => renderPlayerTwoStageView.renderPlayerTwoCard(playerTwoStage, card, index));
-    this.cardSelect(card,index);
-  };
-
-  GameView.prototype.cardSelect = function (playerBox) {
-
-    playerBox.addEventListener('click', (evt) => {
-      let cardPos;
-        if(player1.getMyTurn() === true){
-            if(evt.target.className.includes('card'))
-              {
-                cardPos = evt.target.parentNode.id
-              } else {
-                cardPos = evt.target.id
-            }
-        }
-      PubSub.publish("GameView:Card-Clicked", cardPos )
-    });
   };
 
   GameView.prototype.renderPlayer1Table = function (playerOneTable, player1Field) {
