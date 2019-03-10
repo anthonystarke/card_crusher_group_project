@@ -1,9 +1,6 @@
-
-
 const TurnPhaseModel = function() {
 
-  this.currentPhase = null
-
+  this.currentPhase = null;
   this.phaseOrder = {
     start: "draw",
     draw: "play1",
@@ -12,29 +9,23 @@ const TurnPhaseModel = function() {
     play2: "end",
     end: "start"
     };
-
 };
 
 TurnPhaseModel.prototype.startGame = function () {
-  this.currentPhase === "start";
+  this.currentPhase = "start";
 };
 
 TurnPhaseModel.prototype.nextPhase = function () {
-  this.currentPhase === this.phaseOrder[this.currentPhase];
+  this.currentPhase = this.phaseOrder[this.currentPhase];
 };
 
 TurnPhaseModel.prototype.overridePhase = function (chosenPhase) {
-  this.currentPhase === chosenPhase;
+  this.currentPhase = chosenPhase;
 };
 
 TurnPhaseModel.prototype.getCurrentPhase = function () {
   return this.currentPhase;
-}
-
-
-
-
-
+};
 
 
 

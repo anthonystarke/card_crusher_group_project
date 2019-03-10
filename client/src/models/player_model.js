@@ -1,11 +1,15 @@
-const PlayerModel = function(hand) {
+const PlayerModel = function(hand, playerID) {
   this.health = 10;
   this.playerHand = hand;
   this.playerField = []
   this.needNewCard = false;
   this.myTurn = false;
-
+  this.playerID = playerID;
 }
+
+PlayerModel.prototype.getID = function () {
+  return this.playerID;
+};
 
 PlayerModel.prototype.moveToField = function (cardPos) {
   this.playerField.push(this.playerHand.splice(cardPos,1)[0]);
