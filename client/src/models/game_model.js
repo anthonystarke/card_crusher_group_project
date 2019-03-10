@@ -104,6 +104,24 @@ GameModel.prototype.returnWeakestCard = function (field) {
   },{})
 };
 
+GameModel.prototype.damageMultiplyer = function (attackingCard,defendingCard) {
+  // let multiplyer;
+  if (attackingCard['type'] === defendingCard['type'])
+  {
+    return 1;
+  } else if(attackingCard['type'] === 'Fighter' && defendingCard['type'] === 'Rogue')
+  {
+    return 2;
+  } else if(attackingCard['type'] === 'Rogue' && defendingCard['type'] === 'Mage')
+  {
+    return 2;
+  } else if (attackingCard['type'] === 'Mage' && defendingCard['type'] === 'Fighter')
+  {
+    return 2;
+  }
+  return 1;
+};
+
 GameModel.prototype.processingField = function (attacker,defender) {
 
   const attackingField = attacker.accessField();
@@ -123,13 +141,14 @@ GameModel.prototype.processingField = function (attacker,defender) {
       defender.takeDamage(attackingCard['attack']);
     }
 
-    console.log(`${attacker.getName()} - Attacking`);
-
     if(weakestCard['defence'] >= 0)
     {
-      weakestCard['defence'] -= attackingCard['attack'];
+      const damageMulti = this.damageMultiplyer(attackingCard,weakestCard);
+
+      weakestCard['defence'] -= (attackingCard['attack'] * damageMulti);
 
       if(weakestCard['defence'] <= 0){
+
         defendingField = defendingField.filter((card)=>{
           if(card !== weakestCard){
             return card;
@@ -137,7 +156,6 @@ GameModel.prototype.processingField = function (attacker,defender) {
         })
       }
     }
-    console.log(`${defender.getName()} - Defending`, `Card takes ${totalDamage} Damage`);
   })
   defender.updatePlayerField(defendingField);
 };
@@ -148,8 +166,6 @@ GameModel.prototype.cardAction = function(cardPos,attacker,defender)
   const card = playerHand[cardPos];
   attacker.moveToField(cardPos);
   this.processingField(attacker,defender);
-  // defender.takeDamage(card['attack']);
-  // attacker.removeCard(cardPos);
   this.changeTurns(attacker,defender);
 };
 
