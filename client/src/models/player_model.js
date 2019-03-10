@@ -27,10 +27,14 @@ PlayerModel.prototype.removeFromField = function (cardObject) {
 PlayerModel.prototype.accessField = function () {
   return this.playerField;
 };
+
 PlayerModel.prototype.getMyTurn = function () {
   return this.myTurn;
 };
 
+PlayerModel.prototype.updatePlayerField = function (newField) {
+  this.playerField = newField;
+};
 PlayerModel.prototype.setMyTurn = function (value) {
   this.myTurn = value;
 };

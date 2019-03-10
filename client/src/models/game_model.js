@@ -90,37 +90,56 @@ GameModel.prototype.changeTurns = function(endTurn,startTurn){
   startTurn.setMyTurn(true);
 };
 
+GameModel.prototype.returnWeakestCard = function (field) {
+  return field.reduce((total,newCard) => {
+    if(!total.hasOwnProperty('defence')){
+      total = newCard;
+      return total;
+    }
+    if(total['defence'] > newCard['defence'])
+    {
+      total = newCard;
+    }
+    return total
+  },{})
+};
+
 GameModel.prototype.processingField = function (attacker,defender) {
 
   const attackingField = attacker.accessField();
-  const defendingField = defender.accessField();
+  let defendingField = defender.accessField();
   const deckModel = new DeckModel();
 
   let totalDamage = 0
 
   attackingField.forEach((attackingCard,index) => {
-    const weakestCard = defendingField.reduce((total,newCard) => {
-      if(!total.hasOwnProperty('defence')){
-        total = newCard;
-        return total;
-      }
-      if(total['defence'] > newCard['defence'])
-      {
-        total = newCard;
-      }
-      return total
-    },{})
+
+    totalDamage += attackingCard['attack'];
+
+    const weakestCard = this.returnWeakestCard(defendingField);
+
+    if(!weakestCard.hasOwnProperty('defence'))
+    {
+      defender.takeDamage(attackingCard['attack']);
+    }
+
     console.log(`${attacker.getName()} - Attacking`);
 
     if(weakestCard['defence'] >= 0)
     {
       weakestCard['defence'] -= attackingCard['attack'];
-      totalDamage += attackingCard['attack'];
 
-      weakestCard['defence'] <= 0 ? defender.removeFromField(weakestCard):'';
+      if(weakestCard['defence'] <= 0){
+        defendingField = defendingField.filter((card)=>{
+          if(card !== weakestCard){
+            return card;
+          }
+        })
+      }
     }
     console.log(`${defender.getName()} - Defending`, `Card takes ${totalDamage} Damage`);
   })
+  defender.updatePlayerField(defendingField);
 };
 
 GameModel.prototype.cardAction = function(cardPos,attacker,defender)
