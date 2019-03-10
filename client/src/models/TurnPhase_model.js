@@ -27,6 +27,10 @@ TurnPhaseModel.prototype.overridePhase = function (chosenPhase) {
   this.currentPhase === chosenPhase;
 };
 
+TurnPhaseModel.prototype.getCurrentPhase = function () {
+  return this.currentPhase;
+}
+
 
 
 
