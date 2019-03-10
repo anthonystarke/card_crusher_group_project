@@ -1,4 +1,26 @@
+body {
+  margin: 0px;
+  padding: 0 px;
+  font-family: 'Merienda', cursive;
+  font-family: 'Cinzel', serif;
+  font-family: 'Berkshire Swash', cursive;
+  background: url(/images/HallowBoard3.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #fafafa;
+  color: #181818;
+}
+
+#wrapper{
+  display: grid;
+    grid-template-columns: 150px repeat(3, 1fr) 150px;
+    grid-template-rows: 30px 150px 150px 150px 150px 30px;
+}
+
 #player-one-container{
+  grid-area: 5 / 2 / 6 / 5;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   margin: 0.2em;
@@ -6,6 +28,7 @@
 }
 
 #player-two-container{
+  grid-area: 2 /2/ 3 / 5;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   margin: 0.2em;
@@ -13,6 +36,7 @@
 }
 
 #title-main{
+  grid-area: 1 /1 / 2/ 2;
 
   color:red;
 
@@ -24,13 +48,16 @@
 }
 
 #player-two-table{
+  grid-area: 3/ 2/ 4/ 5;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   margin: 0.2em;
   padding: 0.2em;
+  background-color: inherit;
 }
 
 #player-one-table{
+  grid-area: 4 / 2 / 5/ 5;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   margin: 0.2em;
@@ -39,25 +66,44 @@
 
 
 .playerCard{
+  width: 100px;
+  height: 135px;
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 0px -150px;
+
   transition: 1s;
   grid-column:auto;
   margin: 0.2em;
   padding: 0.2em;
-  border: 1px;
+  /* border: 1px;
   border-style:solid;
-  border-color:black;
+  border-color:black; */
   text-align:center;
 }
+
+.mage{background: url(/images/cards2.png);
+background-size: 420px;
+background-position: 0px -150px;}
+
+.fighter{background: url(/images/cards2.png);
+background-size: 420px;
+background-position: 0px -250px;}
+
+.rogue{{background: url(/images/cards2.png);
+background-size: 420px;
+background-position: 20px -250px;}}
 
 .playerCard:hover{
   transform: scale(1.1);
   border-color:red;
-
 }
 
 #player-one-charactor{
-  display: grid;
+  grid-area: 6/ 2/ 7/ 4;
+  /* display: grid;
   grid-template-columns: repeat(5, 1fr);
+  background-color: pink; */
 }
 
 .player-one{
@@ -69,8 +115,11 @@
 }
 
 #player-two-charactor{
+  grid-area: 1/ 2/ 2/ 4;
+/*
+  background-color: red;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 1fr); */
 }
 
 .player-two{
@@ -80,3 +129,6 @@
   border-color:black;
   text-align:center;
 }
+
+/* need spacers for cards at bottom */
+/* need extra classes to be added for different cards so that theycan be accessed */
