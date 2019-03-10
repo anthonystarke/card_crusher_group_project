@@ -11,7 +11,7 @@ const GameView = function () {
 
 GameView.prototype.bindEvents = function () {
   PubSub.subscribe("GameModel:Sending-PlayerData", (evt) => {
-    console.log(evt.detail);
+    // console.log(evt.detail);
     this.renderPlayers(evt.detail);
     this.renderCards(evt.detail);
 
@@ -80,13 +80,9 @@ GameView.prototype.bindEvents = function () {
           if(evt.target.className.includes('card'))
           {
             cardPos = evt.target.parentNode.id
-            // playerAction(cardPos,player1,player2)
           } else {
             cardPos = evt.target.id
-            // playerAction(cardPos,player1,player2)
           }
-          // player1.getNewCard(true);
-          // mainGameLoop(player1,player2);
         }
 
         PubSub.publish("GameView:Card-Clicked", cardPos )

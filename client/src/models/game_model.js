@@ -11,24 +11,22 @@ const GameModel = function(){
   const player1Hand = deckModel.initializePlayerDecks(this.deck);
   const player2Hand = deckModel.initializePlayerDecks(this.deck);
 
-  this.player1 = new PlayerModel(player1Hand);
-  this.player2 = new PlayerModel(player2Hand);
+  this.player1 = new PlayerModel(player1Hand,"Player1");
+  this.player2 = new PlayerModel(player2Hand,"Player2");
 
   this.flipCoin(this.player1,this.player2); //decide whos turn it is
   console.log(this.player1.getMyTurn(),this.player2.getMyTurn());
-  // this.publishData(this.player1,this.player2);
 }
 
 GameModel.prototype.bindEvents = function () {
   PubSub.subscribe('GameView:Start-Game',(evt)=>{
     this.publishData(this.player1,this.player2);
-    setInterval(()=>{this.mainGameLoop(this.player1,this.player2)},250);
+    setInterval(() => {this.mainGameLoop(this.player1,this.player2)},250);
   });
-  PubSub.subscribe('GameView:Card-Clicked',(evt)=>{
-
+  PubSub.subscribe('GameView:Card-Clicked',(evt) => {
     this.playerAction(evt.detail,this.player1,this.player2);
+    this.publishData(this.player1,this.player2);
   });
-  //pubsub starts game loop
 };
 
 GameModel.prototype.publishData = function (player1,player2) {
@@ -36,34 +34,35 @@ GameModel.prototype.publishData = function (player1,player2) {
     player1: player1,
     player2: player2
   };
+
   PubSub.publish("GameModel:Sending-PlayerData",combine);
-  // console.log(combine);
+};
+
+GameModel.prototype.playerCardCheck = function (player) {
+  if (player.getNewCardStatus() === true)
+  {
+    const deckModel = new DeckModel();
+    player.addCard(deckModel.getCard(this.deck));
+    player.getNewCard(false);
+    this.publishData(this.player1,this.player2);
+  }
 };
 
 GameModel.prototype.mainGameLoop = function (player1,player2) {
-  const deckModel = new DeckModel();
 
-  if(player1.getMyTurn() === true && player1.getNewCardStatus() === true)
+  if(player1.getMyTurn() === true)
   {
-    player1.addCard(deckModel.getCard(this.deck));
-    player1.getNewCard(false);
-    this.publishData(this.player1,this.player2);
+    this.playerCardCheck(player1)
   }
 
   if(player2.getMyTurn() === true)
   {
-    if(player2.getNewCardStatus() === true)
-    {
-      player2.addCard(deckModel.getCard(this.deck));
-      player2.getNewCard(false);
-      this.publishData(this.player1,this.player2);
+    this.playerCardCheck(player2);
 
-    }
-    if(this.intervalTimer > 6)
+    if(this.intervalTimer > 4)
     {
       this.intervalTimer = 0;
       this.aiAction(player2, player1);
-      this.publishData(player1,player2);
     } else {
       this.intervalTimer += 1;
     }
@@ -91,11 +90,45 @@ GameModel.prototype.changeTurns = function(endTurn,startTurn){
   startTurn.setMyTurn(true);
 };
 
+GameModel.prototype.processingField = function (attacker,defender) {
+
+  const attackingField = attacker.accessField();
+  const defendingField = defender.accessField();
+  const deckModel = new DeckModel();
+
+  let totalDamage = 0
+
+  attackingField.forEach((attackingCard,index) => {
+    const weakestCard = defendingField.reduce((total,newCard) => {
+      if(!total.hasOwnProperty('defence')){
+        total = newCard;
+        return total;
+      }
+      if(total['defence'] > newCard['defence'])
+      {
+        total = newCard;
+      }
+      return total
+    },{})
+    console.log(`${attacker.getName()} - Attacking`);
+
+    if(weakestCard['defence'] >= 0)
+    {
+      weakestCard['defence'] -= attackingCard['attack'];
+      totalDamage += attackingCard['attack'];
+
+      weakestCard['defence'] <= 0 ? defender.removeFromField(weakestCard):'';
+    }
+    console.log(`${defender.getName()} - Defending`, `Card takes ${totalDamage} Damage`);
+  })
+};
+
 GameModel.prototype.cardAction = function(cardPos,attacker,defender)
 {
   const playerHand = attacker.accessHand()
   const card = playerHand[cardPos];
   attacker.moveToField(cardPos);
+  this.processingField(attacker,defender);
   // defender.takeDamage(card['attack']);
   // attacker.removeCard(cardPos);
   this.changeTurns(attacker,defender);
@@ -109,8 +142,7 @@ GameModel.prototype.aiAction = function(self,enemy){
   const randomChoice = this.getRandomInt(self.accessHand().length-1);
   this.cardAction(randomChoice,self,enemy);
   self.getNewCard(true);
-  this.publishData(self,enemy);
-  // this.mainGameLoop(self,enemy);
+  this.publishData(enemy,self);
 };
 
 module.exports = GameModel;
