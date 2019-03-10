@@ -62,20 +62,33 @@ GameModel.prototype.mainLoopWithPhases = function () {
 
   this.turnPhase.nextPhase();
   console.log(this.turnPhase.getCurrentPhase()); //draw phase
+
     const deckModel = new DeckModel();
+    if (this.currentPlayer.accessHand().length <= 4) {
     this.currentPlayer.addCard(deckModel.getCard(this.deck));
     // this.currentplayer.getNewCard(false);
     this.updatePlayer()
     this.publishData(this.player1,this.player2);
+    }
 
   this.turnPhase.nextPhase();
   console.log(this.turnPhase.getCurrentPhase()); //play1 phase
+
+  PubSub.subscribe('GameView:Card-Clicked',(evt)=>{
+    this.cardAction(evt.detail);
+    this.updatePlayer()
+    this.publishData(this.player1,this.player2);
+  });
+
   this.turnPhase.nextPhase();
   console.log(this.turnPhase.getCurrentPhase()); //battle phase
   this.turnPhase.nextPhase();
   console.log(this.turnPhase.getCurrentPhase()); //play2 phase
   this.turnPhase.nextPhase();
   console.log(this.turnPhase.getCurrentPhase());//end phase
+
+  this.player1.turnChange()
+
   this.turnPhase.nextPhase();
   console.log("xxxxxxxxxxx");
 };
@@ -144,14 +157,14 @@ GameModel.prototype.changeTurns = function(endTurn,startTurn){
   startTurn.setMyTurn(true);
 };
 
-GameModel.prototype.cardAction = function(cardPos,attacker,defender)
+GameModel.prototype.cardAction = function(cardPos) //removed attacker & defender for testing
 {
-  const playerHand = attacker.accessHand()
+  const playerHand = this.currentPlayer.accessHand()
   const card = playerHand[cardPos];
-  attacker.moveToField(cardPos);
+  this.currentPlayer.moveToField(cardPos);
   // defender.takeDamage(card['attack']);
   // attacker.removeCard(cardPos);
-  this.changeTurns(attacker,defender);
+  // this.changeTurns(attacker,defender);
 };
 
 GameModel.prototype.getRandomInt = function(max) {

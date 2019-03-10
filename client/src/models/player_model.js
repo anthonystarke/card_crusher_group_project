@@ -7,6 +7,10 @@ const PlayerModel = function(hand, playerID) {
   this.playerID = playerID;
 }
 
+PlayerModel.prototype.turnChange = function () {
+  this.myTurn = !this.myTurn;
+};
+
 PlayerModel.prototype.getID = function () {
   return this.playerID;
 };
