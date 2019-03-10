@@ -59,6 +59,7 @@ GameView.prototype.bindEvents = function () {
     player1Hand.forEach((card,index) => {
       const playerBox = document.createElement("div");
       playerBox.classList.add('playerCard');
+      playerBox.classList.add(card['type']);
 
       playerBox.setAttribute("id", index);
       playerOneStage.appendChild(playerBox);
