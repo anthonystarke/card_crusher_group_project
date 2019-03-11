@@ -69,19 +69,28 @@ input[type=submit]:hover {
 }
 
 #player-one-container{
-  grid-area: 5 / 2 / 6 / 5;
+  grid-area: 5 / 3 / 6 / 4;
   display: grid;
+  position: absolute;
+  top: 555px;
+  left:100px;
   grid-template-columns: repeat(5, 1fr);
   margin: 0.2em;
-  padding: 0.2em;
+
+  /* padding: 50px;
+  padding-left:100px;
+  padding-right:100px; */
 }
 
 #player-two-container{
   grid-area: 2 /2/ 3 / 5;
   display: grid;
+  position: absolute;
+  top: 50px;
+  left:100px;
   grid-template-columns: repeat(5, 1fr);
-  margin: 0.2em;
-  padding: 0.2em;
+  /* margin: 0.2em;
+  padding: 0.2em; */
 }
 
 #player-two-table{
@@ -181,18 +190,21 @@ input[type=submit]:hover {
   background: url(/images/cards2.png);
   background-size: 420px;
   background-position: 102px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 .fighter_f_p2{
   background: url(/images/cards2.png);
   background-size: 420px;
   background-position: 313px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 .rogue_f_p2{
   background: url(/images/cards2.png);
   background-size: 420px;
   background-position: 210px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 
@@ -200,19 +212,27 @@ input[type=submit]:hover {
   background: url(/images/cards2.png);
   background-size: 420px;
   background-position: 102px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 .fighter_f_p1{
   background: url(/images/cards2.png);
   background-size: 420px;
   background-position: 313px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 .rogue_f_p1{
   background: url(/images/cards2.png);
   background-size: 420px;
   background-position: 210px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
+.displayHand{
+    float: left;
+    margin-left: -60px;
+
+}
 /* need spacers for cards at bottom */
 /* need extra classes to be added for different cards so that theycan be accessed */

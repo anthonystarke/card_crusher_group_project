@@ -8,8 +8,10 @@ RenderView.prototype.renderPlayerOneCard = function (playerOneStage, player1, ca
   const playerBox = document.createElement("div");
   const cardType = card['type'].toLowerCase();
   const monsterClass = cardType.concat('_h_p1');
+
   playerBox.classList.add('playerCard');
   playerBox.classList.add(monsterClass);
+  playerBox.classList.add('displayHand');
   playerBox.setAttribute("id",index);
   playerOneStage.appendChild(playerBox);
 
@@ -36,6 +38,7 @@ RenderView.prototype.renderPlayerTwoCard = function (playerTwoStage, card, index
   const monsterClass = cardType.concat('_h_p2');
   playerBox.classList.add('playerCard');
   playerBox.classList.add(monsterClass);
+  playerBox.classList.add('displayHand');
   playerBox.setAttribute("id",index);
   playerTwoStage.appendChild(playerBox);
 
