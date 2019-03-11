@@ -11,11 +11,11 @@ GameView.prototype.bindEvents = function () {
 
   this.startButton.addEventListener('submit',(evt) => {
     evt.preventDefault();
-    PubSub.publish("GameView:Start-Game",true);
-
     console.log(evt.target.username.value)
-    const start_section = document.getElementById('start-wrapper');
-    start_section.classList.add('hidden');
+    PubSub.publish("GameView:Start-Game",true);
+   const startWrapper = document.getElementById('start-wrapper')
+   // document.body.removeChild(startWrapper)
+   startWrapper.parentNode.removeChild(startWrapper)
   })
 
     PubSub.subscribe("GameModel:Sending-PlayerData", (evt) => {

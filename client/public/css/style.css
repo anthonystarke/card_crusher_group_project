@@ -13,21 +13,52 @@ body {
   color: #181818;
 }
 
-/* #start-wrapper{
+#start-wrapper{
   display: grid;
-    grid-template-columns: 150px repeat(3, 1fr) 150px;
-    grid-template-rows: 30px 150px 150px 150px 150px 30px;
+  grid-template-columns: 150px repeat(3, 1fr) 150px;
+  grid-template-rows: 30px 150px 150px 150px 150px 30px;
 }
 
-#start-form{
-  grid-area: 3 / 3 / 4 / 4;
-} */
 
+
+#start-form{
+  grid-area: 4 / 2 / 5 / 3;
+}
+
+
+input[type=type] {
+    border: 1px solid #bfbfbf;
+    padding: 7px;
+    margin-top: 1rem;
+    outline: none;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+input[type=submit] {
+    border: 1px solid #bfbfbf;
+    padding: 7px;
+    margin-top: 1rem;
+    outline: none;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+input[type=submit]:hover {
+    background: #e6e6e6;
+    box-shadow: none;
+    margin-top: 1rem;
+}
 
 #wrapper{
   display: grid;
-    grid-template-columns: 150px repeat(3, 1fr) 150px;
-    grid-template-rows: 30px 150px 150px 150px 150px 30px;
+  grid-template-columns: 150px repeat(3, 1fr) 150px;
+  grid-template-rows: 50px 195px 150px 150px 150px 30px;
+}
+
+#filler{
+  grid-area: 1 /1/ 2 / 5;
+  height:68px;
 }
 
 #player-one-container{
@@ -62,12 +93,6 @@ body {
   margin: 0.2em;
   padding: 0.2em;
 }
-
-.hidden {
-  display: none;
-  /* visibility: hidden; */
-}
-
 
 .playerCard{
   width: 100px;
@@ -110,10 +135,11 @@ body {
 }
 
 #player-one-charactor{
-  grid-area: 6/ 2/ 7/ 4;
-  /* display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  background-color: pink; */
+  grid-area: 6/ 1/ 7/ 6;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  text-align:center;
 }
 
 .player-one{
@@ -125,8 +151,14 @@ body {
 }
 
 #player-two-charactor{
-  grid-area: 1/ 2/ 2/ 4;
+  grid-area: 1/ 1/ 2/ 6;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  text-align:center;
+  background-color: black;
 /*
+
   background-color: red;
   display: grid;
   grid-template-columns: repeat(5, 1fr); */
