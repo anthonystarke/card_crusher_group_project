@@ -14,14 +14,16 @@ body {
 }
 
 #start-wrapper{
+  display: grid;
+  grid-template-columns: 150px repeat(3, 1fr) 150px;
+  grid-template-rows: 30px 150px 150px 150px 150px 30px;
   background: url(/images/HallowBoard3.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  display: grid;
-  grid-template-columns: 150px repeat(3, 1fr) 150px;
-  grid-template-rows: 30px 150px 150px 150px 150px 30px;
+  width: 100vw;
+  height: 100vh;
 }
 
 #start-form{
@@ -59,34 +61,42 @@ input[type=submit]:hover {
   -o-background-size: cover;
   background-size: cover;
   display: grid;
-  grid-template-columns: 250px repeat(3, 1fr) 250px;
-  grid-template-rows: 50px 195px 150px 150px 150px 70px;
+  grid-template-columns: 1fr repeat(3, 1fr) 1fr;
+  grid-template-rows: 1.5fr 4.5fr 3.5fr 3.5fr 3fr 1.5fr;
+  width: 100vw;
+  height: 100vh;
 }
 
-#filler{
-  grid-area: 1 /1/ 2 / 5;
-  height:68px;
+#next-turn-wrapper{
+  grid-area: 3 / 5/  4 / 6;
+  display: grid;
+  grid-template-columns: repeat(5,fr);
+  gird-template-rows: auto;
+}
+
+.next-turn-button{
+  grid-area: 3/2/4/5;
+  border:solid;
+  border-color: black;
+  border-width: 6;
+
 }
 
 #player-one-container{
   grid-area: 5 / 3 / 6 / 4;
   display: grid;
   position: absolute;
-  top: 555px;
+  top: 75%;
   left:100px;
   grid-template-columns: repeat(5, 1fr);
   margin: 0.2em;
-
-  /* padding: 50px;
-  padding-left:100px;
-  padding-right:100px; */
 }
 
 #player-two-container{
   grid-area: 2 /2/ 3 / 5;
   display: grid;
   position: absolute;
-  top: 50px;
+  top: 5%;
   left:100px;
   grid-template-columns: repeat(5, 1fr);
   /* margin: 0.2em;
@@ -113,14 +123,14 @@ input[type=submit]:hover {
 .playerCard{
   width: 100px;
   height: 135px;
+  background: url(/images/cards2.png);
+  background-size: 420px;
   transition: 1s;
   grid-column:auto;
   margin: 0.2em;
   padding: 0.2em;
   text-align:center;
 }
-
-
 
 .playerCard:hover{
   transform: scale(1.1);
@@ -135,13 +145,14 @@ input[type=submit]:hover {
 }
 
 .player-one{
+  padding:0.2em;
   grid-column:3;
   border: 1px;
   border-style:solid;
   border-color:black;
   text-align:center;
   color: white;
-  background-color: black;
+  background-color: #a42a1f;
 }
 
 #player-two-charactor{
@@ -153,30 +164,25 @@ input[type=submit]:hover {
 }
 
 .player-two{
+  padding:0.2em;
   grid-column:3;
   border: 1px;
   border-style:solid;
   border-color:black;
   text-align:center;
   color: white;
-  background-color: black;
+  background-color: #a42a1f;
 }
 
 .mage_h_p1{
-  background: url(/images/cards2.png);
-  background-size: 420px;
   background-position: 102px -148px;
 }
 
 .fighter_h_p1{
-  background: url(/images/cards2.png);
-  background-size: 420px;
   background-position: 313px -148px;
 }
 
 .rogue_h_p1{
-  background: url(/images/cards2.png);
-  background-size: 420px;
   background-position: 210px -148px;
 }
 
@@ -187,44 +193,32 @@ input[type=submit]:hover {
 }
 
 .mage_f_p2{
-  background: url(/images/cards2.png);
-  background-size: 420px;
   background-position: 102px -148px;
   box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 .fighter_f_p2{
-  background: url(/images/cards2.png);
-  background-size: 420px;
   background-position: 313px -148px;
   box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 .rogue_f_p2{
-  background: url(/images/cards2.png);
-  background-size: 420px;
   background-position: 210px -148px;
   box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 
 .mage_f_p1{
-  background: url(/images/cards2.png);
-  background-size: 420px;
   background-position: 102px -148px;
   box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 .fighter_f_p1{
-  background: url(/images/cards2.png);
-  background-size: 420px;
   background-position: 313px -148px;
   box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 .rogue_f_p1{
-  background: url(/images/cards2.png);
-  background-size: 420px;
   background-position: 210px -148px;
   box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
