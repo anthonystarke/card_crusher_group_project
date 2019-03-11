@@ -14,7 +14,6 @@ GameView.prototype.bindEvents = function () {
   })
 
     PubSub.subscribe("GameModel:Sending-PlayerData", (evt) => {
-    console.log(evt.detail);
     this.renderPlayers(evt.detail);
     this.renderStage(evt.detail);
     this.renderTable(evt.detail);

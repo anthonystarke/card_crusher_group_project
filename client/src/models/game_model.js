@@ -16,12 +16,38 @@ const GameModel = function(){
 
   this.flipCoin(this.player1,this.player2); //decide whos turn it is
   console.log(this.player1.getMyTurn(),this.player2.getMyTurn());
+
+  const nextTurn = document.querySelector('#next-turn');
+  nextTurn.addEventListener('click',(evt) => {
+
+    this.changeTurns();
+    this.playerCardCheck(this.player1)
+    // this.playerCardCheck(this.player1);
+    this.processingField(this.player1,this.player2);
+
+    this.mainGameLoop(this.player1,this.player2)
+    this.publishData(this.player1,this.player2);
+
+  })
 }
+
+GameModel.prototype.changeTurns = function () {
+  if (this.player1.getMyTurn() === true)
+  {
+    this.player1.setMyTurn(false);
+    this.player2.setMyTurn(true);
+  } else
+  {
+    this.player1.setMyTurn(true);
+    this.player2.setMyTurn(false);
+  }
+};
 
 GameModel.prototype.bindEvents = function () {
   PubSub.subscribe('GameView:Start-Game',(evt)=>{
     this.publishData(this.player1,this.player2);
-    setInterval(() => {this.mainGameLoop(this.player1,this.player2)},250);
+    this.mainGameLoop(this.player1,this.player2)
+    // setInterval(() => {this.mainGameLoop(this.player1,this.player2)},250);
   });
   PubSub.subscribe('GameView:Card-Clicked',(evt) => {
     this.playerAction(evt.detail,this.player1,this.player2);
@@ -39,8 +65,9 @@ GameModel.prototype.publishData = function (player1,player2) {
 };
 
 GameModel.prototype.playerCardCheck = function (player) {
-  if (player.getNewCardStatus() === true)
+  if (player.accessField.length < 5 && player.getNewCardStatus() === true)
   {
+    console.log("Drawing card");
     const deckModel = new DeckModel();
     player.addCard(deckModel.getCard(this.deck));
     player.getNewCard(false);
@@ -50,27 +77,28 @@ GameModel.prototype.playerCardCheck = function (player) {
 
 GameModel.prototype.mainGameLoop = function (player1,player2) {
 
-  if(player1.getMyTurn() === true)
-  {
-    this.playerCardCheck(player1)
-  }
+  // if(player1.getMyTurn() === true)
+  // {
+  //   this.playerCardCheck(player1)
+  // }
 
   if(player2.getMyTurn() === true)
   {
-    this.playerCardCheck(player2);
 
-    if(this.intervalTimer > 4)
-    {
-      this.intervalTimer = 0;
+    // if(this.intervalTimer > 4)
+    // {
+      // this.intervalTimer = 0;
       this.aiAction(player2, player1);
-    } else {
-      this.intervalTimer += 1;
-    }
+      // this.playerCardCheck(player2);
+
+    // } else {
+    //   this.intervalTimer += 1;
+    // }
   }
 };
 
 GameModel.prototype.flipCoin = function (player1,player2) {
-  const choice = this.getRandomInt(3);
+  const choice = this.getRandomInt(2);
   if(choice === 0){
     player1.setMyTurn(true);
   }else{
@@ -80,14 +108,7 @@ GameModel.prototype.flipCoin = function (player1,player2) {
 
 GameModel.prototype.playerAction = function(cardPos,attacker,defender){
     this.cardAction(cardPos,attacker,defender);
-    this.changeTurns(attacker,defender);
-    this.publishData(attacker,defender);
     attacker.getNewCard(true);
-};
-
-GameModel.prototype.changeTurns = function(endTurn,startTurn){
-  endTurn.setMyTurn(false);
-  startTurn.setMyTurn(true);
 };
 
 GameModel.prototype.returnWeakestCard = function (field) {
@@ -138,23 +159,28 @@ GameModel.prototype.processingField = function (attacker,defender) {
 
     if(!weakestCard.hasOwnProperty('defence'))
     {
+      console.log(defender.getName(),'Took damage',attackingCard['attack']);
       defender.takeDamage(attackingCard['attack']);
     }
 
     if(weakestCard['defence'] >= 0)
     {
+      console.log(attacker.getName(),"Targetted: ",weakestCard['type']);
+
       const damageMulti = this.damageMultiplyer(attackingCard,weakestCard);
 
+      console.log(attackingCard['type'],"battled",weakestCard['type']);
+
       weakestCard['defence'] -= (attackingCard['attack'] * damageMulti);
-
       if(weakestCard['defence'] <= 0){
-
+        console.log(attacker.getName(),'killed: ',weakestCard['type']);
         defendingField = defendingField.filter((card)=>{
           if(card !== weakestCard){
             return card;
           }
         })
       }
+
     }
   })
   defender.updatePlayerField(defendingField);
@@ -164,9 +190,10 @@ GameModel.prototype.cardAction = function(cardPos,attacker,defender)
 {
   const playerHand = attacker.accessHand()
   const card = playerHand[cardPos];
+  console.log(attacker.getName(),'Played',card['type']);
   attacker.moveToField(cardPos);
-  this.processingField(attacker,defender);
-  this.changeTurns(attacker,defender);
+  // this.processingField(attacker,defender);
+  // this.changeTurns(attacker,defender);
 };
 
 GameModel.prototype.getRandomInt = function(max) {
@@ -174,9 +201,16 @@ GameModel.prototype.getRandomInt = function(max) {
 };
 
 GameModel.prototype.aiAction = function(self,enemy){
+
   const randomChoice = this.getRandomInt(self.accessHand().length-1);
+  this.playerCardCheck(self);
+
   this.cardAction(randomChoice,self,enemy);
   self.getNewCard(true);
+
+  this.changeTurns();
+  this.processingField(self,enemy);
+
   this.publishData(enemy,self);
 };
 
