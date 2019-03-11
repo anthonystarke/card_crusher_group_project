@@ -6,6 +6,7 @@ const TurnPhaseModel = require("./turn_phase_model.js");
 const GameModel = function(){
 
   this.turnPhase = new TurnPhaseModel();
+  this.turn = false
 
   const deckModel = new DeckModel();
   this.intervalTimer = 0;
@@ -64,7 +65,7 @@ GameModel.prototype.publishData = function (player1,player2) {
 
         console.log(this.turnPhase.getCurrentPhase()); //start phase
 
-          if(this.player1.getMyTurn() === true )
+          if(this.turn === true )
           {
             this.currentPlayer = new PlayerModel(this.player1.accessHand(),1);
             console.log("player1s turn!");
@@ -116,9 +117,7 @@ GameModel.prototype.publishData = function (player1,player2) {
       case 'end':
 
         console.log(this.turnPhase.getCurrentPhase());//end phase
-
-        this.player1.turnChange()
-
+        this.turnChange()
         this.checkPhase()
         break;
     };
@@ -190,6 +189,10 @@ GameModel.prototype.checkPhase = function () {
     this.turnPhase.nextPhase();
   };
 }
+
+GameModel.prototype.turnChange = function () {
+    this.turn = !this.turn;
+};
 
 
 GameModel.prototype.mainGameLoop = function (player1,player2) {
