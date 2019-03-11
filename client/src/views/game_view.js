@@ -4,12 +4,17 @@ const RenderView = require('./render_view.js');
 
 
 const GameView = function (startButton) {
+<<<<<<< HEAD
  this.startButton = startButton;
  console.log(startButton);
+=======
+  this.startButton = startButton;
+>>>>>>> feature/continue_changes
 };
 
 GameView.prototype.bindEvents = function () {
 
+<<<<<<< HEAD
  this.startButton.addEventListener('submit', (evt)=> {
    evt.preventDefault();
    PubSub.publish("GameView:Start-Game", true);
@@ -17,9 +22,18 @@ GameView.prototype.bindEvents = function () {
   // document.body.removeChild(startWrapper)
   startWrapper.parentNode.removeChild(startWrapper)
  })
+=======
+  this.startButton.addEventListener('submit',(evt) => {
+    evt.preventDefault();
+    const userName = evt.target.username.value;
+    PubSub.publish("GameView:Start-Game",userName);
+   const startWrapper = document.getElementById('start-wrapper')
+   // document.body.removeChild(startWrapper)
+   startWrapper.parentNode.removeChild(startWrapper)
+  })
+>>>>>>> feature/continue_changes
 
     PubSub.subscribe("GameModel:Sending-PlayerData", (evt) => {
-    console.log(evt.detail);
     this.renderPlayers(evt.detail);
     this.renderStage(evt.detail);
     this.renderTable(evt.detail);
@@ -73,12 +87,12 @@ GameView.prototype.renderPlayers = function (players){
     this.renderPlayer2Table(playerTwoTable, player2Field)
   };
 
+
   GameView.prototype.renderPlayer1Card = function (playerOneStage, player1Hand, player1) {
     playerOneStage.innerHTML = '';
     const renderPlayerOneStageView = new RenderView(playerOneStage);
     player1Hand.forEach((card,index) => renderPlayerOneStageView.renderPlayerOneCard(playerOneStage, player1, card, index));
   };
-
 
   GameView.prototype.renderPlayer2Card = function (playerTwoStage, player2Hand) {
     playerTwoStage.innerHTML = '';
