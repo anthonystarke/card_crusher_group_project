@@ -27,7 +27,9 @@ PlayerModel.prototype.getMaxEnergy = function () {
 };
 
 PlayerModel.prototype.increaseMaxEnergy = function () {
-  this.maxEnergy += 1;
+
+  // this.maxEnergy += 1 if
+  this.maxEnergy < 5 ? this.maxEnergy += 1: this.maxEnergy;
 };
 
 PlayerModel.prototype.getName = function () {
