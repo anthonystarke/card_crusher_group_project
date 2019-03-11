@@ -3,6 +3,8 @@ const GameView = require('./views/game_view.js');
 
 document.addEventListener('DOMContentLoaded', () => {
   const startGame = document.querySelector('#start-game');
+  console.log(startGame);
+
   const gameView = new GameView(startGame);
   gameView.bindEvents();
 

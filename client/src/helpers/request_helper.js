@@ -16,6 +16,17 @@ RequestHelper.prototype.post = function (payload) {
     .then((response) => response.json());
 };
 
+RequestHelper.prototype.put = function(payload, urlParam) {
+  const url = urlParam ? `${this.url}/${urlParam}` : this.url;
+  return fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'application/json' }
+  })
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
+};
+
 RequestHelper.prototype.delete = function (id) {
   return fetch(`${this.url}/${id}`, {
     method: 'DELETE'

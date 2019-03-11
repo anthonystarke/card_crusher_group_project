@@ -3,15 +3,20 @@ const RequestHelper = require("../helpers/request_helper.js")
 const RenderView = require('./render_view.js');
 
 
-const GameView = function (element) {
-  this.element = element;
+const GameView = function (startButton) {
+ this.startButton = startButton;
+ console.log(startButton);
 };
 
 GameView.prototype.bindEvents = function () {
 
-  this.element.addEventListener('click',() => {
-    PubSub.publish("GameView:Start-Game",true);
-  })
+ this.startButton.addEventListener('submit', (evt)=> {
+   evt.preventDefault();
+   PubSub.publish("GameView:Start-Game", true);
+   const startWrapper = document.getElementById("start-wrapper")
+  // document.body.removeChild(startWrapper)
+  startWrapper.parentNode.removeChild(startWrapper)
+ })
 
     PubSub.subscribe("GameModel:Sending-PlayerData", (evt) => {
     console.log(evt.detail);

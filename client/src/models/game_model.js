@@ -17,6 +17,8 @@ const GameModel = function(){
   this.flipCoin(this.player1,this.player2); //decide whos turn it is
   console.log(this.player1.getMyTurn(),this.player2.getMyTurn());
   // this.publishData(this.player1,this.player2);
+
+
 }
 
 GameModel.prototype.bindEvents = function () {
@@ -112,5 +114,6 @@ GameModel.prototype.aiAction = function(self,enemy){
   this.publishData(self,enemy);
   // this.mainGameLoop(self,enemy);
 };
+
 
 module.exports = GameModel;
