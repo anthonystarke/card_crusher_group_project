@@ -44,8 +44,8 @@ DeckModel.prototype.startBuildingDeck = function () {
     const abilityType = this.getCardAbilityType();
     const randomHash = {
       type: cardType,
-      attack: this.getRandomInt(4),
-      defence: this.getRandomInt(10),
+      attack: this.getRandomInt(5),
+      defence: this.getRandomInt(5),
       abilities: abilityType
       }
     deckOfCards.push(randomHash);
