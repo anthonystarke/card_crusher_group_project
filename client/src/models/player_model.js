@@ -6,8 +6,29 @@ const PlayerModel = function(hand,name) {
   this.myTurn = false;
   this.actions = 3;
   this.name = name;
-
+  this.energy = 1;
+  this.maxEnergy = 1;
 }
+
+PlayerModel.prototype.getEnergy = function () {
+  return this.energy;
+};
+
+PlayerModel.prototype.setEnergy = function (value) {
+  this.energy = value;
+};
+
+PlayerModel.prototype.reduceEnergy = function () {
+  this.energy -= 1;
+};
+
+PlayerModel.prototype.getMaxEnergy = function () {
+  return this.maxEnergy;
+};
+
+PlayerModel.prototype.increaseMaxEnergy = function () {
+  this.maxEnergy += 1;
+};
 
 PlayerModel.prototype.getName = function () {
   return this.name;

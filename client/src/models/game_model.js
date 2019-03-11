@@ -21,13 +21,16 @@ const GameModel = function(){
   nextTurn.addEventListener('click',(evt) => {
 
     this.changeTurns();
+
+    this.player1.increaseMaxEnergy();
+    this.player1.setEnergy(this.player1.getMaxEnergy());
+
     this.playerCardCheck(this.player1)
     // this.playerCardCheck(this.player1);
     this.processingField(this.player1,this.player2);
 
     this.mainGameLoop(this.player1,this.player2)
     this.publishData(this.player1,this.player2);
-
   })
 }
 
@@ -50,8 +53,13 @@ GameModel.prototype.bindEvents = function () {
     // setInterval(() => {this.mainGameLoop(this.player1,this.player2)},250);
   });
   PubSub.subscribe('GameView:Card-Clicked',(evt) => {
-    this.playerAction(evt.detail,this.player1,this.player2);
-    this.publishData(this.player1,this.player2);
+
+    console.log(this.player1.getName(),'energy',this.player1.getEnergy());
+    if(this.player1.getEnergy() > 0)
+    {
+      this.playerAction(evt.detail,this.player1,this.player2);
+      this.publishData(this.player1,this.player2);
+    }
   });
 };
 
@@ -76,11 +84,6 @@ GameModel.prototype.playerCardCheck = function (player) {
 };
 
 GameModel.prototype.mainGameLoop = function (player1,player2) {
-
-  // if(player1.getMyTurn() === true)
-  // {
-  //   this.playerCardCheck(player1)
-  // }
 
   if(player2.getMyTurn() === true)
   {
@@ -109,6 +112,9 @@ GameModel.prototype.flipCoin = function (player1,player2) {
 GameModel.prototype.playerAction = function(cardPos,attacker,defender){
     this.cardAction(cardPos,attacker,defender);
     attacker.getNewCard(true);
+    attacker.reduceEnergy();
+    console.log(attacker.getName(),'energy',attacker.getEnergy());
+
 };
 
 GameModel.prototype.returnWeakestCard = function (field) {
@@ -180,10 +186,19 @@ GameModel.prototype.processingField = function (attacker,defender) {
           }
         })
       }
-
     }
   })
   defender.updatePlayerField(defendingField);
+
+  if (defender.healthLeft() <= 0){
+    this.gameOver(attacker);
+  }
+};
+
+GameModel.prototype.gameOver = function (winner) {
+
+  PubSub.publish("GameModel:GameOutPut",winner.getName() === 'player2' ? 'Lose' : 'Win')
+
 };
 
 GameModel.prototype.cardAction = function(cardPos,attacker,defender)
