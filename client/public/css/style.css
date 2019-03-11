@@ -13,6 +13,17 @@ body {
   color: #181818;
 }
 
+/* #start-wrapper{
+  display: grid;
+    grid-template-columns: 150px repeat(3, 1fr) 150px;
+    grid-template-rows: 30px 150px 150px 150px 150px 30px;
+}
+
+#start-form{
+  grid-area: 3 / 3 / 4 / 4;
+} */
+
+
 #wrapper{
   display: grid;
     grid-template-columns: 150px repeat(3, 1fr) 150px;
@@ -50,6 +61,11 @@ body {
   grid-template-columns: repeat(5, 1fr);
   margin: 0.2em;
   padding: 0.2em;
+}
+
+.hidden {
+  display: none;
+  /* visibility: hidden; */
 }
 
 
