@@ -2,11 +2,14 @@ const PlayerModel = require("./player_model.js");
 const DeckModel = require("./deck_model.js");
 const PubSub = require("../helpers/pub_sub.js");
 const TurnPhaseModel = require("./turn_phase_model.js");
+const FieldModel = require("./field_model.js");
 
 const GameModel = function(){
 
   this.turnPhase = new TurnPhaseModel();
   this.turn = false
+
+  this.field = new FieldModel();
 
   const deckModel = new DeckModel();
   this.intervalTimer = 0;
@@ -95,7 +98,7 @@ GameModel.prototype.publishData = function (player1,player2) {
         console.log(this.turnPhase.getCurrentPhase()); //play1 phase
         PubSub.subscribe('GameView:Card-Clicked',(evt)=>{
           console.log("card clicked", evt.detail);
-          this.cardAction(evt.detail);
+          this.playCard(evt.detal)
           this.updatePlayer()
           this.publishData(this.player1,this.player2);
         });
@@ -122,6 +125,11 @@ GameModel.prototype.publishData = function (player1,player2) {
         break;
     };
 
+  };
+
+  GameModel.prototype.playCard = function (cardPos) {
+    const playedCard = this.currentPlayer.removeCardFromHand(cardPos)
+    this.field.playCard(playedCard, this.currentPlayer.getID())
   };
 
 
@@ -176,10 +184,10 @@ GameModel.prototype.updatePlayer = function () {
   const id = this.currentPlayer.getID()
   if(id === this.player1.getID()) {
     this.player1 = new PlayerModel(this.currentPlayer.accessHand(),this.currentPlayer.getID());
-    this.player1.updateCurrentField(this.currentPlayer.accessField());
+    //this.player1.updateCurrentField(this.currentPlayer.accessField());
   } else {
     this.player2 = new PlayerModel(this.currentPlayer.accessHand(),this.currentPlayer.getID());
-    this.player2.updateCurrentField(this.currentPlayer.accessField());
+    //this.player2.updateCurrentField(this.currentPlayer.accessField());
   };
 };
 

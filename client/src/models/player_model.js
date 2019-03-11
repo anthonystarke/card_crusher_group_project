@@ -11,6 +11,10 @@ PlayerModel.prototype.updateCurrentField = function (newField) {
   console.log("updateCurrentField",this.playerID,this.playerField);
 };
 
+  PlayerModel.prototype.removeCardFromHand = function (cardPos) {
+    return this.playerHand.splice(cardPos,1)[0];
+  };
+
 PlayerModel.prototype.turnChange = function () {
   this.myTurn = !this.myTurn;
 };
