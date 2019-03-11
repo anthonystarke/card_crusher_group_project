@@ -35,18 +35,6 @@ body {
   padding: 0.2em;
 }
 
-#title-main{
-  grid-area: 1 /1 / 2/ 2;
-
-  color:red;
-
-}
-#title-main:hover{
-
-  color:black;
-
-}
-
 #player-two-table{
   grid-area: 3/ 2/ 4/ 5;
   display: grid;
@@ -82,17 +70,23 @@ body {
   text-align:center;
 }
 
-.mage{background: url(/images/cards2.png);
-background-size: 420px;
-background-position: 0px -150px;}
+.Mage{
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 102px -150px;
+}
 
-.fighter{background: url(/images/cards2.png);
-background-size: 420px;
-background-position: 0px -250px;}
+.Fighter{
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 313px -150px;
+}
 
-.rogue{{background: url(/images/cards2.png);
-background-size: 420px;
-background-position: 20px -250px;}}
+.Rogue{
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 210px -150px;
+}
 
 .playerCard:hover{
   transform: scale(1.1);
