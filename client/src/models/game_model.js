@@ -21,6 +21,7 @@ const GameModel = function(){
 
 GameModel.prototype.bindEvents = function () {
   PubSub.subscribe('GameView:Start-Game',(evt)=>{
+  
     this.publishData(this.player1,this.player2);
     setInterval(()=>{this.mainGameLoop(this.player1,this.player2)},250);
   });
