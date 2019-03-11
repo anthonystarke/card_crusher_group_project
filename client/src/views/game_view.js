@@ -82,15 +82,10 @@ GameView.prototype.bindEvents = function () {
           if(evt.target.className.includes('card'))
           {
             cardPos = evt.target.parentNode.id
-            // playerAction(cardPos,player1,player2)
           } else {
             cardPos = evt.target.id
-            // playerAction(cardPos,player1,player2)
           }
-          // player1.getNewCard(true);
-          // mainGameLoop(player1,player2);
         }
-
         PubSub.publish("GameView:Card-Clicked", cardPos )
       })
     })
