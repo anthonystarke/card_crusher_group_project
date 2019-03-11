@@ -97,12 +97,12 @@ RenderView.prototype.renderPlayerTwoTable = function (playerTwoTable, card, inde
   cardName.textContent = card["type"];
   playerBox.appendChild(cardName);
 
-  const cardAttack = document.createElement("p");
+  const cardAttack = document.createElement("h5");
   cardAttack.classList.add('cardAttack')
   cardAttack.textContent = `Attack ${card["attack"]}`;
   playerBox.appendChild(cardAttack);
 
-  const cardDefence = document.createElement("p");
+  const cardDefence = document.createElement("h5");
   cardDefence.classList.add('cardDefence')
   cardDefence.textContent = `Defence ${card["defence"]}`;
   playerBox.appendChild(cardDefence);
