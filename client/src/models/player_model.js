@@ -35,8 +35,13 @@ PlayerModel.prototype.increaseMaxEnergy = function () {
 PlayerModel.prototype.getName = function () {
   return this.name;
 };
+
 PlayerModel.prototype.moveToField = function (cardPos) {
-  this.playerField.push(this.playerHand.splice(cardPos,1)[0]);
+  if(this.playerField.length < 5){
+    this.playerField.push(this.playerHand.splice(cardPos,1)[0]);
+  }else{
+    console.log("Cant Place card on field, End turn");
+  }
 };
 
 PlayerModel.prototype.removeFromField = function (cardObject) {
@@ -61,8 +66,8 @@ PlayerModel.prototype.updatePlayerField = function (newField) {
 PlayerModel.prototype.setMyTurn = function (value) {
   this.myTurn = value;
 };
-PlayerModel.prototype.getNewCard = function (value) {
-  this.needNewCard = value;
+PlayerModel.prototype.getNewCard = function () {
+  this.playerHand.length < 5 ? this.needNewCard = true: this.needNewCard = false
 };
 
 PlayerModel.prototype.getNewCardStatus = function () {

@@ -25,6 +25,8 @@ const GameModel = function(){
     this.player1.increaseMaxEnergy();
     this.player1.setEnergy(this.player1.getMaxEnergy());
 
+    this.player1.getNewCard();
+
     this.playerCardCheck(this.player1)
     // this.playerCardCheck(this.player1);
     this.processingField(this.player1,this.player2);
@@ -73,12 +75,13 @@ GameModel.prototype.publishData = function (player1,player2) {
 };
 
 GameModel.prototype.playerCardCheck = function (player) {
-  if (player.accessField.length < 5 && player.getNewCardStatus() === true)
+
+  if (player.accessHand.length < 5 && player.getNewCardStatus() === true)
   {
     console.log("Drawing card");
     const deckModel = new DeckModel();
     player.addCard(deckModel.getCard(this.deck));
-    player.getNewCard(false);
+    player.getNewCard();
     this.publishData(this.player1,this.player2);
   }
 };
@@ -111,7 +114,6 @@ GameModel.prototype.flipCoin = function (player1,player2) {
 
 GameModel.prototype.playerAction = function(cardPos,attacker,defender){
     this.cardAction(cardPos,attacker,defender);
-    attacker.getNewCard(true);
     attacker.reduceEnergy();
     console.log(attacker.getName(),'energy',attacker.getEnergy());
 
@@ -197,7 +199,7 @@ GameModel.prototype.processingField = function (attacker,defender) {
 
 GameModel.prototype.gameOver = function (winner) {
 
-  PubSub.publish("GameModel:GameOutPut",winner.getName() === 'player2' ? 'Lose' : 'Win')
+  PubSub.publish("GameModel:GameOutPut",winner.getName() === 'player2' ? 'Lose' : 'Win');
 
 };
 
@@ -207,8 +209,7 @@ GameModel.prototype.cardAction = function(cardPos,attacker,defender)
   const card = playerHand[cardPos];
   console.log(attacker.getName(),'Played',card['type']);
   attacker.moveToField(cardPos);
-  // this.processingField(attacker,defender);
-  // this.changeTurns(attacker,defender);
+
 };
 
 GameModel.prototype.getRandomInt = function(max) {
@@ -221,7 +222,7 @@ GameModel.prototype.aiAction = function(self,enemy){
   this.playerCardCheck(self);
 
   this.cardAction(randomChoice,self,enemy);
-  self.getNewCard(true);
+  self.getNewCard();
 
   this.changeTurns();
   this.processingField(self,enemy);
