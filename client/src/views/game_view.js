@@ -68,52 +68,11 @@ GameView.prototype.renderPlayers = function (players){
     this.renderPlayer2Table(playerTwoTable, player2Field)
   };
 
-<<<<<<< HEAD
   GameView.prototype.renderPlayer1Card = function (playerOneStage, player1Hand, player1) {
     playerOneStage.innerHTML = '';
     const renderPlayerOneStageView = new RenderView(playerOneStage);
     player1Hand.forEach((card,index) => renderPlayerOneStageView.renderPlayerOneCard(playerOneStage, player1, card, index));
   };
-=======
-    player1Hand.forEach((card,index) => {
-      const playerBox = document.createElement("div");
-      playerBox.classList.add('playerCard');
-      playerBox.classList.add(card['type']);
-
-      playerBox.setAttribute("id", index);
-      playerOneStage.appendChild(playerBox);
-      const cardName = document.createElement("h3");
-      cardName.classList.add('cardName')
-      cardName.textContent = card["type"];
-      playerBox.appendChild(cardName);
-      const cardAttack = document.createElement("h5");
-      cardAttack.classList.add('cardAttack')
-      cardAttack.textContent = `Attack ${card["attack"]}`;
-      playerBox.appendChild(cardAttack);
-      const cardDefence = document.createElement("h5");
-      cardDefence.classList.add('cardDefence')
-      cardDefence.textContent = `Defence ${card["defence"]}`;
-      playerBox.appendChild(cardDefence);
-
-      playerBox.addEventListener('click', (evt) => {
-        let cardPos;
-        if(player1.getMyTurn() === true){
-          if(evt.target.className.includes('card'))
-          {
-            cardPos = evt.target.parentNode.id
-            // playerAction(cardPos,player1,player2)
-          } else {
-            cardPos = evt.target.id
-            // playerAction(cardPos,player1,player2)
-          }
-          // player1.getNewCard(true);
-          // mainGameLoop(player1,player2);
-        }
-
-        PubSub.publish("GameView:Card-Clicked", cardPos )
-      })
-    })
->>>>>>> develop
 
 
   GameView.prototype.renderPlayer2Card = function (playerTwoStage, player2Hand) {
