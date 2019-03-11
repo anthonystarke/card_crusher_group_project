@@ -4,29 +4,31 @@ body {
   font-family: 'Merienda', cursive;
   font-family: 'Cinzel', serif;
   font-family: 'Berkshire Swash', cursive;
-  background: url(/images/HallowBoard3.jpg) no-repeat center center fixed;
+  /* background: url(/images/HallowEndBoard.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  background-size: cover; */
   background-color: #fafafa;
   color: #181818;
 }
 
 #start-wrapper{
+  background: url(/images/HallowBoard3.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   display: grid;
   grid-template-columns: 150px repeat(3, 1fr) 150px;
   grid-template-rows: 30px 150px 150px 150px 150px 30px;
 }
 
-
-
 #start-form{
   grid-area: 4 / 2 / 5 / 3;
 }
 
-
-input[type=type] {
+input[type=input] {
     border: 1px solid #bfbfbf;
     padding: 7px;
     margin-top: 1rem;
@@ -51,9 +53,14 @@ input[type=submit]:hover {
 }
 
 #wrapper{
+  background: url(/images/HallowBoard3.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   display: grid;
-  grid-template-columns: 150px repeat(3, 1fr) 150px;
-  grid-template-rows: 50px 195px 150px 150px 150px 30px;
+  grid-template-columns: 250px repeat(3, 1fr) 250px;
+  grid-template-rows: 50px 195px 150px 150px 150px 70px;
 }
 
 #filler{
@@ -97,37 +104,14 @@ input[type=submit]:hover {
 .playerCard{
   width: 100px;
   height: 135px;
-  background: url(/images/cards2.png);
-  background-size: 420px;
-  background-position: 0px -150px;
-
   transition: 1s;
   grid-column:auto;
   margin: 0.2em;
   padding: 0.2em;
-  /* border: 1px;
-  border-style:solid;
-  border-color:black; */
   text-align:center;
 }
 
-.Mage{
-  background: url(/images/cards2.png);
-  background-size: 420px;
-  background-position: 102px -150px;
-}
 
-.Fighter{
-  background: url(/images/cards2.png);
-  background-size: 420px;
-  background-position: 313px -150px;
-}
-
-.Rogue{
-  background: url(/images/cards2.png);
-  background-size: 420px;
-  background-position: 210px -150px;
-}
 
 .playerCard:hover{
   transform: scale(1.1);
@@ -135,8 +119,7 @@ input[type=submit]:hover {
 }
 
 #player-one-charactor{
-  grid-area: 6/ 1/ 7/ 6;
-  color: white;
+  grid-area: 7/ 1/ 8/ 6;
   font-size: 30px;
   font-weight: bold;
   text-align:center;
@@ -148,6 +131,8 @@ input[type=submit]:hover {
   border-style:solid;
   border-color:black;
   text-align:center;
+  color: white;
+  background-color: black;
 }
 
 #player-two-charactor{
@@ -156,12 +141,6 @@ input[type=submit]:hover {
   font-size: 30px;
   font-weight: bold;
   text-align:center;
-  background-color: black;
-/*
-
-  background-color: red;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr); */
 }
 
 .player-two{
@@ -170,6 +149,69 @@ input[type=submit]:hover {
   border-style:solid;
   border-color:black;
   text-align:center;
+  color: white;
+  background-color: black;
+}
+
+.mage_h_p1{
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 102px -148px;
+}
+
+.fighter_h_p1{
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 313px -148px;
+}
+
+.rogue_h_p1{
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 210px -148px;
+}
+
+.mage_h_p2, .fighter_h_p2, .rogue_h_p2 {
+  background: url(/images/cardback.png);
+  background-size: 106px;
+  color: transparent;
+}
+
+.mage_f_p2{
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 102px -148px;
+}
+
+.fighter_f_p2{
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 313px -148px;
+}
+
+.rogue_f_p2{
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 210px -148px;
+}
+
+
+.mage_f_p1{
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 102px -148px;
+}
+
+.fighter_f_p1{
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 313px -148px;
+}
+
+.rogue_f_p1{
+  background: url(/images/cards2.png);
+  background-size: 420px;
+  background-position: 210px -148px;
 }
 
 /* need spacers for cards at bottom */
