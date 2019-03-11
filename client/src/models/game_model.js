@@ -16,11 +16,16 @@ const GameModel = function(){
 
   this.player1 = new PlayerModel(player1Hand,1);
   this.player2 = new PlayerModel(player2Hand,2);
-  this.currentPlayer = new PlayerModel(player1Hand,1);
+  this.currentPlayer = null;
 
   this.flipCoin(this.player1,this.player2); //decide whos turn it is
   console.log(this.player1.getMyTurn(),this.player2.getMyTurn());
   // this.publishData(this.player1,this.player2);
+    this.nextPhaseClick = false;
+  PubSub.subscribe('GameView:Next-Phase',(evt)=>{
+    this.nextPhaseClick = evt.detail;
+  });
+
 }
 
 GameModel.prototype.bindEvents = function () {
@@ -30,12 +35,16 @@ GameModel.prototype.bindEvents = function () {
     console.log(this.turnPhase.getCurrentPhase());
 
     this.publishData(this.player1,this.player2);
-    setInterval(()=>{this.mainLoopWithPhases()},250);
+    // setInterval(()=>{this.switchLoopPhase()},250);
+    PubSub.subscribe('GameView:Next-Phase',(evt)=> {
+    this.switchLoopPhase();
+    });
     // setInterval(()=>{this.mainGameLoop(this.player1,this.player2)},250);
   });
-  PubSub.subscribe('GameView:Card-Clicked',(evt)=>{
+
+  // PubSub.subscribe('GameView:Card-Clicked',(evt)=>{
     // this.playerAction(evt.detail,this.player1,this.player2);
-  });
+  // });
   //pubsub starts game loop
 };
 
@@ -48,6 +57,74 @@ GameModel.prototype.publishData = function (player1,player2) {
   // console.log(combine);
 };
 
+  GameModel.prototype.switchLoopPhase = function () {
+
+    switch (this.turnPhase.getCurrentPhase()) {
+      case 'start':
+
+        console.log(this.turnPhase.getCurrentPhase()); //start phase
+
+          if(this.player1.getMyTurn() === true )
+          {
+            this.currentPlayer = new PlayerModel(this.player1.accessHand(),1);
+            console.log("player1s turn!");
+          } else {
+            this.currentPlayer = new PlayerModel(this.player2.accessHand(),2);
+            console.log("player2s turn!");
+          };
+          this.checkPhase()
+          break;
+
+      case 'draw':
+
+        console.log(this.turnPhase.getCurrentPhase()); //draw phase
+
+          const deckModel = new DeckModel();
+          if (this.currentPlayer.accessHand().length <= 5) {
+          this.currentPlayer.addCard(deckModel.getCard(this.deck));
+          // this.currentplayer.getNewCard(false);
+          this.updatePlayer()
+          this.publishData(this.player1,this.player2);
+        };
+
+          this.checkPhase()
+        break;
+
+      case 'play1':
+        console.log(this.turnPhase.getCurrentPhase()); //play1 phase
+        PubSub.subscribe('GameView:Card-Clicked',(evt)=>{
+          console.log("card clicked", evt.detail);
+          this.cardAction(evt.detail);
+          this.updatePlayer()
+          this.publishData(this.player1,this.player2);
+        });
+
+          this.checkPhase()
+        break;
+
+      case 'battle':
+        console.log(this.turnPhase.getCurrentPhase()); //battle phase
+        this.checkPhase()
+        break;
+
+      case 'play2':
+
+        console.log(this.turnPhase.getCurrentPhase()); //play2 phase
+        this.checkPhase()
+        break;
+
+      case 'end':
+
+        console.log(this.turnPhase.getCurrentPhase());//end phase
+
+        this.player1.turnChange()
+
+        this.checkPhase()
+        break;
+    };
+
+  };
+
 
 GameModel.prototype.mainLoopWithPhases = function () {
 
@@ -56,8 +133,10 @@ GameModel.prototype.mainLoopWithPhases = function () {
     if(this.player1.getMyTurn() === true )
     {
       this.currentPlayer = new PlayerModel(this.player1.accessHand(),1);
+      console.log("player1s turn!");
     } else {
       this.currentPlayer = new PlayerModel(this.player2.accessHand(),2);
+      console.log("player2s turn!");
     };
 
   this.turnPhase.nextPhase();
@@ -91,17 +170,26 @@ GameModel.prototype.mainLoopWithPhases = function () {
 
   this.turnPhase.nextPhase();
   console.log("xxxxxxxxxxx");
+
 };
 
 GameModel.prototype.updatePlayer = function () {
   const id = this.currentPlayer.getID()
   if(id === this.player1.getID()) {
     this.player1 = new PlayerModel(this.currentPlayer.accessHand(),this.currentPlayer.getID());
+    this.player1.updateCurrentField(this.currentPlayer.accessField());
   } else {
     this.player2 = new PlayerModel(this.currentPlayer.accessHand(),this.currentPlayer.getID());
+    this.player2.updateCurrentField(this.currentPlayer.accessField());
   };
 };
 
+GameModel.prototype.checkPhase = function () {
+  if (this.nextPhaseClick === true) {
+    this.nextPhaseClick = false;
+    this.turnPhase.nextPhase();
+  };
+}
 
 
 GameModel.prototype.mainGameLoop = function (player1,player2) {
@@ -157,8 +245,7 @@ GameModel.prototype.changeTurns = function(endTurn,startTurn){
   startTurn.setMyTurn(true);
 };
 
-GameModel.prototype.cardAction = function(cardPos) //removed attacker & defender for testing
-{
+GameModel.prototype.cardAction = function(cardPos) {
   const playerHand = this.currentPlayer.accessHand()
   const card = playerHand[cardPos];
   this.currentPlayer.moveToField(cardPos);

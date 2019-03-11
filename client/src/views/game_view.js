@@ -7,6 +7,11 @@ const GameView = function () {
   startGame.addEventListener('click',() => {
     PubSub.publish("GameView:Start-Game",true);
   })
+
+  const nextPhase = document.querySelector('#next-phase');
+  nextPhase.addEventListener('click',() => {
+      PubSub.publish("GameView:Next-Phase",true);
+  })
 };
 
 GameView.prototype.bindEvents = function () {
@@ -78,7 +83,7 @@ GameView.prototype.bindEvents = function () {
 
       playerBox.addEventListener('click', (evt) => {
         let cardPos;
-        if(player1.getMyTurn() === true){
+        // if(player1.getMyTurn() === true){
           if(evt.target.className.includes('card'))
           {
             cardPos = evt.target.parentNode.id
@@ -89,7 +94,7 @@ GameView.prototype.bindEvents = function () {
           }
           // player1.getNewCard(true);
           // mainGameLoop(player1,player2);
-        }
+        // }
 
         PubSub.publish("GameView:Card-Clicked", cardPos )
       })

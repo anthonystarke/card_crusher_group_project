@@ -6,6 +6,10 @@ const PlayerModel = function(hand, playerID) {
   this.myTurn = false;
   this.playerID = playerID;
 }
+PlayerModel.prototype.updateCurrentField = function (newField) {
+  this.playerField = newField.slice(0);
+  console.log("updateCurrentField",this.playerID,this.playerField);
+};
 
 PlayerModel.prototype.turnChange = function () {
   this.myTurn = !this.myTurn;
