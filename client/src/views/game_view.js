@@ -18,7 +18,7 @@ const GameView = function (startButton) {
     startWrapper.parentNode.removeChild(startWrapper)
 
     const renderView = new RenderView();
-    renderView.renderWelcomeMessage(userName);
+    // renderView.renderWelcomeMessage(userName);
 
     });
 
@@ -111,14 +111,5 @@ const GameView = function (startButton) {
       player2Field.forEach((card,index) => renderPlayerTwoTableView.renderPlayerTwoTable(playerTwoTable, card, index));
     };
   };
-<<<<<<< HEAD
-
-  GameView.prototype.renderPlayersDetails = function () {
-
-  };
-
-  };
-=======
->>>>>>> develop
 
   module.exports = GameView;

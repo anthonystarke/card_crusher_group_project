@@ -1,5 +1,5 @@
 const PlayerModel = function(hand,name) {
-  this.health = 10;
+  this.health = 0;
   this.playerHand = hand;
   this.playerField = []
   this.needNewCard = false;

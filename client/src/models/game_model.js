@@ -55,7 +55,8 @@ GameModel.prototype.changeTurns = function () {
 
 GameModel.prototype.bindEvents = function () {
   PubSub.subscribe('GameView:Start-Game',(evt)=>{
-    this.all();
+
+    this.player1.name = evt.detail;
     this.publishData(this.player1,this.player2);
     this.mainGameLoop(this.player1,this.player2)
     // setInterval(() => {this.mainGameLoop(this.player1,this.player2)},250);
@@ -213,7 +214,7 @@ GameModel.prototype.processingField = function (attacker,defender) {
 };
 
 GameModel.prototype.endGameCheck = function (defender) {
-
+console.log(defender);
   if (defender.healthLeft() <= 0){
     this.gameOverPublish(attacker);
     this.endGame = true;
@@ -221,11 +222,15 @@ GameModel.prototype.endGameCheck = function (defender) {
 };
 
 GameModel.prototype.gameOverPublish = function (winner) {
-
+  console.log(winner);
   // add model that interacts with the database --> which would return the wanted data to go to the view
   // gameDB = new GameDBModel('John');
   // gameDB.connectToDB();
   // data = gameDB.data();
+  const player = {}
+
+  this.all(this.player1.name);
+
   PubSub.publish("GameModel:GameEnd",winner.getName() === 'player2' ? 'Lose' : 'Win');
 };
 
@@ -257,28 +262,48 @@ GameModel.prototype.aiAction = function(self,enemy){
 };
 
 GameModel.prototype.all = function (playerName) {
+  console.log(playerName);
   this.request
     .get()
     .then((listItems) => {
       this.items = listItems;
       console.log(this.items);
       PubSub.publish('DbModel:list-ready', this.items);
-      const playersDetails = this.items;
-      playersDetails.forEach((player) => {
+      let updated = false
+      this.items.forEach((player) => {
         if(playerName === player.name) {
-          this.update(playerDetail)
-      } else {
-        this.add(playerName)
+          console.log("updateCalled");
+          updated = true
+          //
+          //
+          // const winScore = player.winScore += 1
+          //
+          // const loseScore = player.loseScore += 1
+          //
+
+          const newPlayer = {
+            _id: player._id,
+            name: playerName,
+            winScore: winScore,
+            loseScore:loseScore
+          }
+          this.update(newPlayer)
       }
     })
-  })
-  .catch((err) => console.error(err));
-};
+      if (updated === false){
+      this.add(newPlayer)
+      }
+
+    })
+      .catch((err) => console.error(err));
+  }
+
 
 GameModel.prototype.update = function (playerDetail) {
   const id = playerDetail._id;
+  console.log(id,playerDetail);
   this.request
-    .put(playerDetail, id)
+    .put(id, playerDetail)
     .then((listItems) => {
       this.items = listItems;
       PubSub.publish('DbModel:list-ready', this.items);

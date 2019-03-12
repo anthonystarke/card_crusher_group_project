@@ -5,13 +5,6 @@ const RenderView = function (container) {
 };
 
 
-RenderView.prototype.renderWelcomeMessage = function (playerName) {
-  // const welcomeBox = document.querySelector("welcome-message");
-  // welcomeBox.classList.add('welcome');
-  // welcomeBox.textContent = `Welcome ${playerName}`;
-
-};
-
 RenderView.prototype.renderPlayerOneCard = function (playerOneStage, player1, card, index) {
   const playerBox = document.createElement("div");
   const cardType = card['type'].toLowerCase();
