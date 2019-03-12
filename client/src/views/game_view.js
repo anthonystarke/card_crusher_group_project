@@ -14,10 +14,19 @@ GameView.prototype.bindEvents = function () {
     evt.preventDefault();
     const userName = evt.target['username'].value;
     PubSub.publish("GameView:Start-Game",userName);
-   const startWrapper = document.getElementById('start-wrapper')
-   // document.body.removeChild(startWrapper)
-   startWrapper.parentNode.removeChild(startWrapper)
-  })
+    const startWrapper = document.getElementById('start-wrapper')
+    startWrapper.parentNode.removeChild(startWrapper)
+
+    const renderView = new RenderView();
+    renderView.renderWelcomeMessage(userName);
+
+    });
+
+    PubSub.subscribe('DbModel:list-ready', (evt) => {
+      const playersDetails = evt.detail;
+      this.renderPlayersDetails(playersDetails)
+      console.log(playersDetails);
+    });
 
     PubSub.subscribe("GameModel:Sending-PlayerData", (evt) => {
     this.renderPlayers(evt.detail);
@@ -101,7 +110,11 @@ GameView.prototype.renderPlayers = function (players){
       player2Field.forEach((card,index) => renderPlayerTwoTableView.renderPlayerTwoTable(playerTwoTable, card, index));
     };
   };
-};
 
+  GameView.prototype.renderPlayersDetails = function () {
 
-module.exports = GameView;
+  };
+
+  };
+
+  module.exports = GameView;

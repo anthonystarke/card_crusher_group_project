@@ -2,6 +2,7 @@ const PlayerModel = require("./player_model.js");
 const DeckModel = require("./deck_model.js");
 const DbModel = require("./db_model.js");
 const PubSub = require('../helpers/pub_sub.js');
+const RequestHelper = require("../helpers/request_helper.js")
 
 const GameModel = function(){
   const deckModel = new DeckModel();
@@ -17,22 +18,23 @@ const GameModel = function(){
   this.flipCoin(this.player1,this.player2); //decide whos turn it is
   console.log(this.player1.getMyTurn(),this.player2.getMyTurn());
   // this.publishData(this.player1,this.player2);
-
-
+  this.items = []
+  this.request = new RequestHelper('/api/cardcrusher');
 }
 
 GameModel.prototype.bindEvents = function () {
   PubSub.subscribe('GameView:Start-Game',(evt)=>{
   console.log(evt.detail);
-    const dbModel = new DbModel();
+    this.all();
     this.publishData(this.player1,this.player2);
     setInterval(()=>{this.mainGameLoop(this.player1,this.player2)},250);
-    dbModel.publishPlayerData(evt.detail);
-  });
-  PubSub.subscribe('GameView:Card-Clicked',(evt)=>{
 
+  });
+
+  PubSub.subscribe('GameView:Card-Clicked',(evt)=>{
     this.playerAction(evt.detail,this.player1,this.player2);
   });
+
   //pubsub starts game loop
 };
 
@@ -116,6 +118,46 @@ GameModel.prototype.aiAction = function(self,enemy){
   self.getNewCard(true);
   this.publishData(self,enemy);
   // this.mainGameLoop(self,enemy);
+};
+
+GameModel.prototype.all = function (playerName) {
+  this.request
+    .get()
+    .then((listItems) => {
+      this.items = listItems;
+      console.log(this.items);
+      PubSub.publish('DbModel:list-ready', this.items);
+      const playersDetails = this.items;
+      playersDetails.forEach((player) => {
+        if(playerName === player.name) {
+          this.update(playerDetail)
+      } else {
+        this.add(playerName)
+      }
+    })
+  })
+  .catch((err) => console.error(err));
+};
+
+GameModel.prototype.update = function (playerDetail) {
+  const id = playerDetail._id;
+  this.request
+    .put(playerDetail, id)
+    .then((listItems) => {
+      this.items = listItems;
+      PubSub.publish('DbModel:list-ready', this.items);
+    })
+  .catch((err) => console.error(err));
+};
+
+GameModel.prototype.add = function (playerName) {
+  this.request
+    .post(playerName)
+    .then((listItems) => {
+      this.items = listItems;
+      PubSub.publish('DbModel:list-ready', this.items);
+    })
+  .catch((err) => console.error(err));
 };
 
 
