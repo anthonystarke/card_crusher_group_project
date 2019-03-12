@@ -21,6 +21,9 @@ DeckModel.prototype.getCardType = function () {
     case 2:
       cardName = "Rogue";
       break;
+    default:
+      cardName = "Fighter"
+      break;
     }
     return cardName;
 };
