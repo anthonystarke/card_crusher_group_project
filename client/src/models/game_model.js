@@ -211,12 +211,17 @@ GameModel.prototype.processingField = function (attacker,defender) {
 GameModel.prototype.endGameCheck = function (defender) {
 
   if (defender.healthLeft() <= 0){
-    this.gameOver(attacker);
+    this.gameOverPublish(attacker);
     this.endGame = true;
   }
 };
 
-GameModel.prototype.gameOver = function (winner) {
+GameModel.prototype.gameOverPublish = function (winner) {
+
+  // add model that interacts with the database --> which would return the wanted data to go to the view
+  // gameDB = new GameDBModel('John');
+  // gameDB.connectToDB();
+  // data = gameDB.data();
   PubSub.publish("GameModel:GameEnd",winner.getName() === 'player2' ? 'Lose' : 'Win');
 };
 

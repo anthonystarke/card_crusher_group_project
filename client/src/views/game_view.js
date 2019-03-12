@@ -101,7 +101,5 @@ const GameView = function (startButton) {
       player2Field.forEach((card,index) => renderPlayerTwoTableView.renderPlayerTwoTable(playerTwoTable, card, index));
     };
   };
-// };
-
 
 module.exports = GameView;
