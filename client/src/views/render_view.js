@@ -6,7 +6,12 @@ const RenderView = function (container) {
 
 RenderView.prototype.renderPlayerOneCard = function (playerOneStage, player1, card, index) {
   const playerBox = document.createElement("div");
-  playerBox.classList.add('playerCard')
+  const cardType = card['type'].toLowerCase();
+  const monsterClass = cardType.concat('_h_p1');
+
+  playerBox.classList.add('playerCard');
+  playerBox.classList.add(monsterClass);
+  // playerBox.classList.add('displayHand');
   playerBox.setAttribute("id",index);
   playerOneStage.appendChild(playerBox);
 
@@ -29,7 +34,11 @@ RenderView.prototype.renderPlayerOneCard = function (playerOneStage, player1, ca
 
 RenderView.prototype.renderPlayerTwoCard = function (playerTwoStage, card, index) {
   const playerBox = document.createElement("div");
-  playerBox.classList.add('playerCard')
+  const cardType = card['type'].toLowerCase();
+  const monsterClass = cardType.concat('_h_p2');
+  playerBox.classList.add('playerCard');
+  playerBox.classList.add(monsterClass);
+  playerBox.classList.add('displayHand');
   playerBox.setAttribute("id",index);
   playerTwoStage.appendChild(playerBox);
 
@@ -66,7 +75,10 @@ RenderView.prototype.cardSelect = function (playerBox, player1) {
 
 RenderView.prototype.renderPlayerOneTable = function (playerOneTable, card, index) {
     const playerBox = document.createElement("div");
-    playerBox.classList.add('playerCard')
+    const cardType = card['type'].toLowerCase();
+    const monsterClass = cardType.concat('_f_p1');
+    playerBox.classList.add('playerCard');
+    playerBox.classList.add(monsterClass);
     playerBox.setAttribute("id",index);
     playerOneTable.appendChild(playerBox);
 
@@ -88,7 +100,10 @@ RenderView.prototype.renderPlayerOneTable = function (playerOneTable, card, inde
 
 RenderView.prototype.renderPlayerTwoTable = function (playerTwoTable, card, index) {
   const playerBox = document.createElement("div");
-  playerBox.classList.add('playerCard')
+  const cardType = card['type'].toLowerCase();
+  const monsterClass = cardType.concat('_f_p2');
+  playerBox.classList.add('playerCard');
+  playerBox.classList.add(monsterClass);
   playerBox.setAttribute("id",index);
   playerTwoTable.appendChild(playerBox);
 
