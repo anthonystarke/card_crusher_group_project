@@ -30,29 +30,20 @@ body {
   grid-area: 4 / 2 / 5 / 3;
 }
 
-input[type=input] {
-    border: 1px solid #bfbfbf;
-    padding: 7px;
-    margin-top: 1rem;
-    outline: none;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+/* h3 {
+  display: block;
+  font-size: 1.17em;
+  margin-top: 3em;
+  margin-bottom:0;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
 }
 
-input[type=submit] {
-    border: 1px solid #bfbfbf;
-    padding: 7px;
-    margin-top: 1rem;
-    outline: none;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-
-input[type=submit]:hover {
-    background: #e6e6e6;
-    box-shadow: none;
-    margin-top: 1rem;
-}
+h5{
+  margin:0px;
+  padding:0px;
+}  */
 
 #wrapper{
   background: url(/images/HallowBoard3.jpg) no-repeat center center fixed;
@@ -228,5 +219,68 @@ input[type=submit]:hover {
     margin-left: -60px;
 
 }
+
+/* input[type=submit] {
+    border: 1px solid #bfbfbf;
+    padding: 7px;
+    margin-top: 1rem;
+    outline: none;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+} */
+
+
+#start-form {
+	/* margin:10px auto; */
+	/* padding: 20px 12px 10px 20px; */
+}
+
+#start-form label{
+	margin:0 0 3px 0;
+	padding:0px;
+	/* display:block; */
+	font-weight: bold;
+}
+#start-form input[type=text]{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border:1px solid #751636;
+	padding: 7px;
+	margin:0px;
+	outline: none;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+#start-form input[type=text]:focus,
+{
+	-moz-box-shadow: 0 0 8px #605436;
+	-webkit-box-shadow: 0 0 8px #605436;
+	box-shadow: 0 0 8px #605436;
+	border: 1px solid #605436;
+}
+
+#start-form input[type=submit]{
+	background: #751636;
+	padding: 8px 15px 8px 15px;
+	border: none;
+	color: #fff;
+  border: 1px solid #bfbfbf;
+  /* padding: 7px; */
+  margin-top: 1rem;
+  outline: none;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+#start-form input[type=submit]:hover{
+	background: #d0ab95;
+	box-shadow:none;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+}
+#start-form .required{
+	color:red;
+}
+
 /* need spacers for cards at bottom */
 /* need extra classes to be added for different cards so that theycan be accessed */

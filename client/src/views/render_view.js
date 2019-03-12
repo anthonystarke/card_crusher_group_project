@@ -11,7 +11,7 @@ RenderView.prototype.renderPlayerOneCard = function (playerOneStage, player1, ca
 
   playerBox.classList.add('playerCard');
   playerBox.classList.add(monsterClass);
-  playerBox.classList.add('displayHand');
+  // playerBox.classList.add('displayHand');
   playerBox.setAttribute("id",index);
   playerOneStage.appendChild(playerBox);
 
