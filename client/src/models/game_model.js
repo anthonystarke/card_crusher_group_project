@@ -92,7 +92,7 @@ GameModel.prototype.playerCardCheck = function (player) {
     console.log("Drawing card");
     const deckModel = new DeckModel();
     player.addCard(deckModel.getCard(this.deck));
-    player.getNewCard();
+    // player.getNewCard();
     this.publishData(this.player1,this.player2);
   }
 };
@@ -101,16 +101,7 @@ GameModel.prototype.mainGameLoop = function (player1,player2) {
 
   if(player2.getMyTurn() === true)
   {
-
-    // if(this.intervalTimer > 4)
-    // {
-      // this.intervalTimer = 0;
       this.aiAction(player2, player1);
-      // this.playerCardCheck(player2);
-
-    // } else {
-    //   this.intervalTimer += 1;
-    // }
   }
 };
 
@@ -166,7 +157,6 @@ GameModel.prototype.publishBattleLogs = function (battleLog) {
   PubSub.publish("GameModel:Publish-Logs",battleLog);
   console.log(battleLog);
 };
-
 
 GameModel.prototype.processingField = function (attacker,defender) {
 
@@ -234,10 +224,6 @@ GameModel.prototype.endGameCheck = function (defender) {
 
 GameModel.prototype.gameOverPublish = function (winner) {
 
-  // add model that interacts with the database --> which would return the wanted data to go to the view
-  // gameDB = new GameDBModel('John');
-  // gameDB.connectToDB();
-  // data = gameDB.data();
   PubSub.publish("GameModel:GameEnd",winner.getName() === 'player2' ? 'Lose' : 'Win');
 };
 
@@ -256,16 +242,28 @@ GameModel.prototype.getRandomInt = function(max) {
 
 GameModel.prototype.aiAction = function(self,enemy){
 
-  const randomChoice = this.getRandomInt(self.accessHand().length-1);
-  this.playerCardCheck(self);
+  for(let i = 0; i < self.getEnergy(); i++)
+  {
+    console.log("GetEnergy",self.getEnergy(),i);
+    if(self.accessHand().length > 0)
+    {
+      const randomChoice = this.getRandomInt(self.accessHand().length-1);
+      this.playerCardCheck(self);
+      this.cardAction(randomChoice,self,enemy);
+    }
+  }
 
-  this.cardAction(randomChoice,self,enemy);
   self.getNewCard();
-
   this.changeTurns();
   this.processingField(self,enemy);
-
   this.publishData(enemy,self);
+
+  if(this.turnCounter % 3 === 0){
+    self.increaseMaxEnergy();
+    console.log(self.name,"Increase Max energy",self.getMaxEnergy());
+  }
+  self.setEnergy(self.getMaxEnergy());
+
 };
 
 module.exports = GameModel;
