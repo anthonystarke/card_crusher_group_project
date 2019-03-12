@@ -196,6 +196,8 @@ GameModel.prototype.processingField = function (attacker,defender) {
         this.publishBattleLogs(`${attacker.getName()} - "killed: " ${weakestCard['type']}`);
         // console.log(attacker.getName(),'killed: ',weakestCard['type']);
 
+        this.publishCardAnimation(weakestCard);
+
         defendingField = defendingField.filter((card)=>{
           if(card !== weakestCard){
             return card;
@@ -207,6 +209,11 @@ GameModel.prototype.processingField = function (attacker,defender) {
   defender.updatePlayerField(defendingField);
   this.endGameCheck(defender)
 };
+
+GameModel.prototype.publishCardAnimation = function (cardToAnimate){
+  console.log("Card to animate",cardToAnimate);
+  PubSub.publish('GameModel:CardToAnimate');
+}
 
 GameModel.prototype.endGameCheck = function (defender) {
 
