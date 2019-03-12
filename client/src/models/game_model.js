@@ -4,6 +4,7 @@ const PubSub = require('../helpers/pub_sub.js');
 
 const GameModel = function(){
 
+  this.gameEnd = false;
   const deckModel = new DeckModel();
   this.intervalTimer = 0;
   this.deck = deckModel.startBuildingDeck();
@@ -17,7 +18,7 @@ const GameModel = function(){
   this.flipCoin(this.player1,this.player2); //decide whos turn it is
   console.log(this.player1.getMyTurn(),this.player2.getMyTurn());
 
-  const nextTurn = document.querySelector('#next-turn');
+  const nextTurn = document.querySelector('#next-turn-wrapper');
   nextTurn.addEventListener('click',(evt) => {
 
     this.changeTurns();
@@ -50,6 +51,7 @@ GameModel.prototype.changeTurns = function () {
 
 GameModel.prototype.bindEvents = function () {
   PubSub.subscribe('GameView:Start-Game',(evt)=>{
+
     this.publishData(this.player1,this.player2);
     this.mainGameLoop(this.player1,this.player2)
     // setInterval(() => {this.mainGameLoop(this.player1,this.player2)},250);
@@ -63,11 +65,6 @@ GameModel.prototype.bindEvents = function () {
       this.publishData(this.player1,this.player2);
     }
   });
-};
-
-GameModel.prototype.publishBattleLogs = function (battleLog) {
-  PubSub.publish("GameModel:Publish-Logs",battleLog);
-  console.log(battleLog);
 };
 
 GameModel.prototype.publishData = function (player1,player2) {
@@ -156,6 +153,12 @@ GameModel.prototype.damageMultiplyer = function (attackingCard,defendingCard) {
   return 1;
 };
 
+GameModel.prototype.publishBattleLogs = function (battleLog) {
+  PubSub.publish("GameModel:Publish-Logs",battleLog);
+  console.log(battleLog);
+};
+
+
 GameModel.prototype.processingField = function (attacker,defender) {
 
   const attackingField = attacker.accessField();
@@ -202,17 +205,19 @@ GameModel.prototype.processingField = function (attacker,defender) {
     }
   })
   defender.updatePlayerField(defendingField);
+  this.endGameCheck(defender)
+};
 
+GameModel.prototype.endGameCheck = function (defender) {
 
   if (defender.healthLeft() <= 0){
     this.gameOver(attacker);
+    this.endGame = true;
   }
 };
 
 GameModel.prototype.gameOver = function (winner) {
-
-  PubSub.publish("GameModel:GameOutPut",winner.getName() === 'player2' ? 'Lose' : 'Win');
-
+  PubSub.publish("GameModel:GameEnd",winner.getName() === 'player2' ? 'Lose' : 'Win');
 };
 
 GameModel.prototype.cardAction = function(cardPos,attacker,defender)
