@@ -30,6 +30,26 @@ body {
   grid-area: 4 / 2 / 5 / 3;
 }
 
+#end-wrapper{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+}
+
+#end-contents{
+  grid-area: 3 / 2 / 4 / 3;
+  background-color: #2cacb1;
+}
+#left-side{
+  grid-area: 3 / 3 / 4 / 4;
+  background-color: lightgray;
+}
+#right-side{
+  grid-area: 3 / 1 / 4 / 2;
+  background-color: lightgray;
+}
+
+
 /* h3 {
   display: block;
   font-size: 1.17em;
@@ -144,6 +164,7 @@ h5{
   text-align:center;
   color: white;
   background-color: #a42a1f;
+  z-index: 99 !important;
 }
 
 #player-two-charactor{
@@ -219,16 +240,19 @@ h5{
     margin-left: -60px;
 
 }
-
-/* input[type=submit] {
-    border: 1px solid #bfbfbf;
-    padding: 7px;
-    margin-top: 1rem;
-    outline: none;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+/* #console{
+  height:300px;
+  width:300px;
+  border:1px solid #ccc;
+  font:16px/26px Georgia, Garamond, Serif;
+  overflow:auto;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color:#7877bd;
+  color:white;
+  z-index:1;
 } */
-
 
 #start-form {
 	/* margin:10px auto; */
