@@ -9,5 +9,4 @@ document.addEventListener('DOMContentLoaded', () => {
   const gameModel = new GameModel();
   gameModel.bindEvents();
 
-
 });

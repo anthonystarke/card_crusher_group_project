@@ -4,34 +4,20 @@ const RenderView = require('./render_view.js');
 
 
 const GameView = function (startButton) {
-<<<<<<< HEAD
- this.startButton = startButton;
- console.log(startButton);
-=======
+
   this.startButton = startButton;
->>>>>>> feature/continue_changes
 };
 
 GameView.prototype.bindEvents = function () {
 
-<<<<<<< HEAD
- this.startButton.addEventListener('submit', (evt)=> {
-   evt.preventDefault();
-   PubSub.publish("GameView:Start-Game", true);
-   const startWrapper = document.getElementById("start-wrapper")
-  // document.body.removeChild(startWrapper)
-  startWrapper.parentNode.removeChild(startWrapper)
- })
-=======
   this.startButton.addEventListener('submit',(evt) => {
     evt.preventDefault();
-    const userName = evt.target.username.value;
+    const userName = evt.target['username'].value;
     PubSub.publish("GameView:Start-Game",userName);
    const startWrapper = document.getElementById('start-wrapper')
    // document.body.removeChild(startWrapper)
    startWrapper.parentNode.removeChild(startWrapper)
   })
->>>>>>> feature/continue_changes
 
     PubSub.subscribe("GameModel:Sending-PlayerData", (evt) => {
     this.renderPlayers(evt.detail);

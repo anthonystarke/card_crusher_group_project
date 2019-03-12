@@ -1,9 +1,9 @@
 const PlayerModel = require("./player_model.js");
 const DeckModel = require("./deck_model.js");
+const DbModel = require("./db_model.js");
 const PubSub = require('../helpers/pub_sub.js');
 
 const GameModel = function(){
-
   const deckModel = new DeckModel();
   this.intervalTimer = 0;
   this.deck = deckModel.startBuildingDeck();
@@ -23,9 +23,11 @@ const GameModel = function(){
 
 GameModel.prototype.bindEvents = function () {
   PubSub.subscribe('GameView:Start-Game',(evt)=>{
-  
+  console.log(evt.detail);
+    const dbModel = new DbModel();
     this.publishData(this.player1,this.player2);
     setInterval(()=>{this.mainGameLoop(this.player1,this.player2)},250);
+    dbModel.publishPlayerData(evt.detail);
   });
   PubSub.subscribe('GameView:Card-Clicked',(evt)=>{
 

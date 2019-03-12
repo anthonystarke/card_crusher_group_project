@@ -16,18 +16,6 @@ RequestHelper.prototype.post = function (payload) {
     .then((response) => response.json());
 };
 
-<<<<<<< HEAD
-RequestHelper.prototype.put = function(payload, urlParam) {
-  const url = urlParam ? `${this.url}/${urlParam}` : this.url;
-  return fetch(url, {
-    method: 'PUT',
-    body: JSON.stringify(payload),
-    headers: { 'Content-Type': 'application/json' }
-  })
-    .then((response) => response.json())
-    .catch((err) => console.error(err));
-};
-=======
 RequestHelper.prototype.put = function (id, payload) {
 
   console.log(`${this.url}/${id}`)
@@ -38,8 +26,6 @@ RequestHelper.prototype.put = function (id, payload) {
   })
     .then((response) => response.json());
 }
-
->>>>>>> feature/continue_changes
 
 RequestHelper.prototype.delete = function (id) {
   return fetch(`${this.url}/${id}`, {
