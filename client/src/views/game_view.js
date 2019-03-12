@@ -8,7 +8,7 @@ const GameView = function (startButton) {
   this.startButton = startButton;
 };
 
-GameView.prototype.bindEvents = function () {
+  GameView.prototype.bindEvents = function () {
 
   this.startButton.addEventListener('submit',(evt) => {
     evt.preventDefault();
@@ -33,8 +33,9 @@ GameView.prototype.bindEvents = function () {
     this.renderStage(evt.detail);
     this.renderTable(evt.detail);
   });
+}
 
-GameView.prototype.renderPlayers = function (players){
+  GameView.prototype.renderPlayers = function (players){
 
     const player1 = players.player1;
     const player2 = players.player2;
@@ -110,11 +111,14 @@ GameView.prototype.renderPlayers = function (players){
       player2Field.forEach((card,index) => renderPlayerTwoTableView.renderPlayerTwoTable(playerTwoTable, card, index));
     };
   };
+<<<<<<< HEAD
 
   GameView.prototype.renderPlayersDetails = function () {
 
   };
 
   };
+=======
+>>>>>>> develop
 
   module.exports = GameView;

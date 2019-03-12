@@ -9,7 +9,7 @@ DeckModel.prototype.getCard = function (deck) {
 
 DeckModel.prototype.getCardType = function () {
 
-  const rand = this.getRandomInt(4)
+  const rand = this.getRandomInt(3)
   let cardName;
   switch (rand) {
     case 0:

@@ -4,11 +4,11 @@ body {
   font-family: 'Merienda', cursive;
   font-family: 'Cinzel', serif;
   font-family: 'Berkshire Swash', cursive;
-  background: url(/images/HallowBoard3.jpg) no-repeat center center fixed;
+  /* background: url(/images/HallowEndBoard.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  background-size: cover; */
   background-color: #fafafa;
   color: #181818;
 }
@@ -17,64 +17,81 @@ body {
   display: grid;
   grid-template-columns: 150px repeat(3, 1fr) 150px;
   grid-template-rows: 30px 150px 150px 150px 150px 30px;
+  background: url(/images/HallowBoard3.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
 }
-
-
 
 #start-form{
   grid-area: 4 / 2 / 5 / 3;
 }
 
-
-input[type=type] {
-    border: 1px solid #bfbfbf;
-    padding: 7px;
-    margin-top: 1rem;
-    outline: none;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+/* h3 {
+  display: block;
+  font-size: 1.17em;
+  margin-top: 3em;
+  margin-bottom:0;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
 }
 
-input[type=submit] {
-    border: 1px solid #bfbfbf;
-    padding: 7px;
-    margin-top: 1rem;
-    outline: none;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-
-input[type=submit]:hover {
-    background: #e6e6e6;
-    box-shadow: none;
-    margin-top: 1rem;
-}
+h5{
+  margin:0px;
+  padding:0px;
+}  */
 
 #wrapper{
+  background: url(/images/HallowBoard3.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   display: grid;
-  grid-template-columns: 150px repeat(3, 1fr) 150px;
-  grid-template-rows: 50px 195px 150px 150px 150px 30px;
+  grid-template-columns: 1fr repeat(3, 1fr) 1fr;
+  grid-template-rows: 1.5fr 4.5fr 3.5fr 3.5fr 3fr 1.5fr;
+  width: 100vw;
+  height: 100vh;
 }
 
-#filler{
-  grid-area: 1 /1/ 2 / 5;
-  height:68px;
+#next-turn-wrapper{
+  grid-area: 3 / 5/  4 / 6;
+  display: grid;
+  grid-template-columns: repeat(5,fr);
+  gird-template-rows: auto;
+}
+
+.next-turn-button{
+  grid-area: 3/2/4/5;
+  border:solid;
+  border-color: black;
+  border-width: 6;
+
 }
 
 #player-one-container{
-  grid-area: 5 / 2 / 6 / 5;
+  grid-area: 5 / 3 / 6 / 4;
   display: grid;
+  position: absolute;
+  top: 75%;
+  left:100px;
   grid-template-columns: repeat(5, 1fr);
   margin: 0.2em;
-  padding: 0.2em;
 }
 
 #player-two-container{
   grid-area: 2 /2/ 3 / 5;
   display: grid;
+  position: absolute;
+  top: 5%;
+  left:100px;
   grid-template-columns: repeat(5, 1fr);
-  margin: 0.2em;
-  padding: 0.2em;
+  /* margin: 0.2em;
+  padding: 0.2em; */
 }
 
 #player-two-table{
@@ -99,34 +116,11 @@ input[type=submit]:hover {
   height: 135px;
   background: url(/images/cards2.png);
   background-size: 420px;
-  background-position: 0px -150px;
-
   transition: 1s;
   grid-column:auto;
   margin: 0.2em;
   padding: 0.2em;
-  /* border: 1px;
-  border-style:solid;
-  border-color:black; */
   text-align:center;
-}
-
-.Mage{
-  background: url(/images/cards2.png);
-  background-size: 420px;
-  background-position: 102px -150px;
-}
-
-.Fighter{
-  background: url(/images/cards2.png);
-  background-size: 420px;
-  background-position: 313px -150px;
-}
-
-.Rogue{
-  background: url(/images/cards2.png);
-  background-size: 420px;
-  background-position: 210px -150px;
 }
 
 .playerCard:hover{
@@ -135,19 +129,21 @@ input[type=submit]:hover {
 }
 
 #player-one-charactor{
-  grid-area: 6/ 1/ 7/ 6;
-  color: white;
+  grid-area: 7/ 1/ 8/ 6;
   font-size: 30px;
   font-weight: bold;
   text-align:center;
 }
 
 .player-one{
+  padding:0.2em;
   grid-column:3;
   border: 1px;
   border-style:solid;
   border-color:black;
   text-align:center;
+  color: white;
+  background-color: #a42a1f;
 }
 
 #player-two-charactor{
@@ -156,20 +152,134 @@ input[type=submit]:hover {
   font-size: 30px;
   font-weight: bold;
   text-align:center;
-  background-color: black;
-/*
-
-  background-color: red;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr); */
 }
 
 .player-two{
+  padding:0.2em;
   grid-column:3;
   border: 1px;
   border-style:solid;
   border-color:black;
   text-align:center;
+  color: white;
+  background-color: #a42a1f;
+}
+
+.mage_h_p1{
+  background-position: 102px -148px;
+}
+
+.fighter_h_p1{
+  background-position: 313px -148px;
+}
+
+.rogue_h_p1{
+  background-position: 210px -148px;
+}
+
+.mage_h_p2, .fighter_h_p2, .rogue_h_p2 {
+  background: url(/images/cardback.png);
+  background-size: 106px;
+  color: transparent;
+}
+
+.mage_f_p2{
+  background-position: 102px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+}
+
+.fighter_f_p2{
+  background-position: 313px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+}
+
+.rogue_f_p2{
+  background-position: 210px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+}
+
+
+.mage_f_p1{
+  background-position: 102px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+}
+
+.fighter_f_p1{
+  background-position: 313px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+}
+
+.rogue_f_p1{
+  background-position: 210px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+}
+
+.displayHand{
+    float: left;
+    margin-left: -60px;
+
+}
+
+/* input[type=submit] {
+    border: 1px solid #bfbfbf;
+    padding: 7px;
+    margin-top: 1rem;
+    outline: none;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+} */
+
+
+#start-form {
+	/* margin:10px auto; */
+	/* padding: 20px 12px 10px 20px; */
+}
+
+#start-form label{
+	margin:0 0 3px 0;
+	padding:0px;
+	/* display:block; */
+	font-weight: bold;
+}
+#start-form input[type=text]{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border:1px solid #751636;
+	padding: 7px;
+	margin:0px;
+	outline: none;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+#start-form input[type=text]:focus,
+{
+	-moz-box-shadow: 0 0 8px #605436;
+	-webkit-box-shadow: 0 0 8px #605436;
+	box-shadow: 0 0 8px #605436;
+	border: 1px solid #605436;
+}
+
+#start-form input[type=submit]{
+	background: #751636;
+	padding: 8px 15px 8px 15px;
+	border: none;
+	color: #fff;
+  border: 1px solid #bfbfbf;
+  /* padding: 7px; */
+  margin-top: 1rem;
+  outline: none;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+#start-form input[type=submit]:hover{
+	background: #d0ab95;
+	box-shadow:none;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+}
+#start-form .required{
+	color:red;
 }
 
 /* need spacers for cards at bottom */
