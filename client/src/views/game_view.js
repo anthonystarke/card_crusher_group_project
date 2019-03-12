@@ -33,6 +33,11 @@ const GameView = function (startButton) {
     this.renderStage(evt.detail);
     this.renderTable(evt.detail);
   });
+
+    PubSub.subscribe("GameModel:GameEnd", (evt) => {
+      console.log(evt.detail);
+    });
+  
 }
 
   GameView.prototype.renderPlayers = function (players){

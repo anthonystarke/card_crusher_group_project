@@ -211,13 +211,15 @@ GameModel.prototype.processingField = function (attacker,defender) {
   })
   defender.updatePlayerField(defendingField);
   this.endGameCheck(defender)
+  console.log(defender);
 };
 
 GameModel.prototype.endGameCheck = function (defender) {
-console.log(defender);
+
   if (defender.healthLeft() <= 0){
     this.gameOverPublish(attacker);
     this.endGame = true;
+    console.log(defender);
   }
 };
 
@@ -232,6 +234,7 @@ GameModel.prototype.gameOverPublish = function (winner) {
   this.all(this.player1.name);
 
   PubSub.publish("GameModel:GameEnd",winner.getName() === 'player2' ? 'Lose' : 'Win');
+
 };
 
 GameModel.prototype.cardAction = function(cardPos,attacker,defender)
