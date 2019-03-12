@@ -17,7 +17,7 @@ const GameModel = function(){
   this.flipCoin(this.player1,this.player2); //decide whos turn it is
   console.log(this.player1.getMyTurn(),this.player2.getMyTurn());
 
-  const nextTurn = document.querySelector('#next-turn');
+  const nextTurn = document.querySelector('#next-turn-wrapper');
   nextTurn.addEventListener('click',(evt) => {
 
     this.changeTurns();
@@ -50,7 +50,7 @@ GameModel.prototype.changeTurns = function () {
 
 GameModel.prototype.bindEvents = function () {
   PubSub.subscribe('GameView:Start-Game',(evt)=>{
-  
+
     this.publishData(this.player1,this.player2);
     this.mainGameLoop(this.player1,this.player2)
     // setInterval(() => {this.mainGameLoop(this.player1,this.player2)},250);
