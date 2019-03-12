@@ -4,6 +4,7 @@ const PubSub = require('../helpers/pub_sub.js');
 
 const GameModel = function(){
 
+  this.gameEnd = false;
   const deckModel = new DeckModel();
   this.intervalTimer = 0;
   this.deck = deckModel.startBuildingDeck();
@@ -152,6 +153,12 @@ GameModel.prototype.damageMultiplyer = function (attackingCard,defendingCard) {
   return 1;
 };
 
+GameModel.prototype.publishBattleLogs = function (battleLog) {
+  PubSub.publish("GameModel:Publish-Logs",battleLog);
+  console.log(battleLog);
+};
+
+
 GameModel.prototype.processingField = function (attacker,defender) {
 
   const attackingField = attacker.accessField();
@@ -168,21 +175,27 @@ GameModel.prototype.processingField = function (attacker,defender) {
 
     if(!weakestCard.hasOwnProperty('defence'))
     {
-      console.log(defender.getName(),'Took damage',attackingCard['attack']);
+      this.publishBattleLogs(`${defender.getName()} - Took damage: ${attackingCard['attack']}`)
+      // console.log(defender.getName(),'Took damage',attackingCard['attack']);
       defender.takeDamage(attackingCard['attack']);
     }
 
     if(weakestCard['defence'] >= 0)
     {
-      console.log(attacker.getName(),"Targetted: ",weakestCard['type']);
+      this.publishBattleLogs(`${attacker.getName()} - "Targetted: " ${weakestCard['type']}`);
+      // console.log(attacker.getName(),"Targetted: ",weakestCard['type']);
 
       const damageMulti = this.damageMultiplyer(attackingCard,weakestCard);
 
-      console.log(attackingCard['type'],"battled",weakestCard['type']);
+      this.publishBattleLogs(`${attackingCard['type']} - "Battled: " ${weakestCard['type']}`);
+      // console.log(attackingCard['type'],"battled",weakestCard['type']);
 
       weakestCard['defence'] -= (attackingCard['attack'] * damageMulti);
       if(weakestCard['defence'] <= 0){
-        console.log(attacker.getName(),'killed: ',weakestCard['type']);
+
+        this.publishBattleLogs(`${attacker.getName()} - "killed: " ${weakestCard['type']}`);
+        // console.log(attacker.getName(),'killed: ',weakestCard['type']);
+
         defendingField = defendingField.filter((card)=>{
           if(card !== weakestCard){
             return card;
@@ -192,16 +205,19 @@ GameModel.prototype.processingField = function (attacker,defender) {
     }
   })
   defender.updatePlayerField(defendingField);
+  this.endGameCheck(defender)
+};
+
+GameModel.prototype.endGameCheck = function (defender) {
 
   if (defender.healthLeft() <= 0){
     this.gameOver(attacker);
+    this.endGame = true;
   }
 };
 
 GameModel.prototype.gameOver = function (winner) {
-
-  PubSub.publish("GameModel:GameOutPut",winner.getName() === 'player2' ? 'Lose' : 'Win');
-
+  PubSub.publish("GameModel:GameEnd",winner.getName() === 'player2' ? 'Lose' : 'Win');
 };
 
 GameModel.prototype.cardAction = function(cardPos,attacker,defender)
