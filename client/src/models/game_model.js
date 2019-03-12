@@ -65,6 +65,11 @@ GameModel.prototype.bindEvents = function () {
   });
 };
 
+GameModel.prototype.publishBattleLogs = function (battleLog) {
+  PubSub.publish("GameModel:Publish-Logs",battleLog);
+  console.log(battleLog);
+};
+
 GameModel.prototype.publishData = function (player1,player2) {
   const combine = {
     player1: player1,
@@ -167,21 +172,27 @@ GameModel.prototype.processingField = function (attacker,defender) {
 
     if(!weakestCard.hasOwnProperty('defence'))
     {
-      console.log(defender.getName(),'Took damage',attackingCard['attack']);
+      this.publishBattleLogs(`${defender.getName()} - Took damage: ${attackingCard['attack']}`)
+      // console.log(defender.getName(),'Took damage',attackingCard['attack']);
       defender.takeDamage(attackingCard['attack']);
     }
 
     if(weakestCard['defence'] >= 0)
     {
-      console.log(attacker.getName(),"Targetted: ",weakestCard['type']);
+      this.publishBattleLogs(`${attacker.getName()} - "Targetted: " ${weakestCard['type']}`);
+      // console.log(attacker.getName(),"Targetted: ",weakestCard['type']);
 
       const damageMulti = this.damageMultiplyer(attackingCard,weakestCard);
 
-      console.log(attackingCard['type'],"battled",weakestCard['type']);
+      this.publishBattleLogs(`${attackingCard['type']} - "Battled: " ${weakestCard['type']}`);
+      // console.log(attackingCard['type'],"battled",weakestCard['type']);
 
       weakestCard['defence'] -= (attackingCard['attack'] * damageMulti);
       if(weakestCard['defence'] <= 0){
-        console.log(attacker.getName(),'killed: ',weakestCard['type']);
+
+        this.publishBattleLogs(`${attacker.getName()} - "killed: " ${weakestCard['type']}`);
+        // console.log(attacker.getName(),'killed: ',weakestCard['type']);
+
         defendingField = defendingField.filter((card)=>{
           if(card !== weakestCard){
             return card;
