@@ -126,11 +126,16 @@ RenderView.prototype.renderPlayerTwoTable = function (playerTwoTable, card, inde
 
 RenderView.prototype.renderEndGame = function (endGameDetails){
   this.container.innerHtml = "";
-
+  console.log('Rendering End Game');
   // add left hand space
-  const leftSideSpace = docuementSelector('div');
-  leftSide.classList.add('left-side');
-   this.container.appendChild(leftSide);
+  const endGameDiv = document.createElement('div');
+  endGameDiv.classList.add('end-contents');
+  this.container.appendChild(endGameDiv);
+
+  const endGameText = document.createElement("h2");
+  endGameDiv.classList.add('end-contents-text');
+  endGameText.textContent = "GaMe OvEr";
+  endGameDiv.appendChild(endGameText);
 
   // main contents
   // const endContents = document.querySelector('div');

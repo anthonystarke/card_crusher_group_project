@@ -23,7 +23,7 @@ const GameView = function (startButton) {
     this.renderStage(evt.detail);
     this.renderTable(evt.detail);
   });
-}
+
 
   PubSub.subscribe("GameModel:GameEnd", (evt) =>{
     const wrapper = document.getElementById('wrapper');
@@ -110,8 +110,9 @@ GameView.prototype.renderPlayer2Table = function (playerTwoTable, player2Field) 
 };
 
 GameView.prototype.renderEndGame = function (endGameDets) {
-  const endGameWrapper = document.querySelector('#end-wrapper');
+  console.log('Game END TEXt',endGameDets);
 
+  const endGameWrapper = document.querySelector('#end-wrapper');
   const endGame = new RenderView(endGameWrapper);
   endGame.renderEndGame(endGameDets);
 };
