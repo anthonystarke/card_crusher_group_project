@@ -1,10 +1,9 @@
 const PlayerModel = function(hand,name) {
-  this.health = 10;
+  this.health = 20;
   this.playerHand = hand;
   this.playerField = []
   this.needNewCard = false;
   this.myTurn = false;
-  this.actions = 3;
   this.name = name;
   this.energy = 1;
   this.maxEnergy = 1;

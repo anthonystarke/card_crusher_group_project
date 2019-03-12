@@ -125,4 +125,41 @@ RenderView.prototype.renderPlayerTwoTable = function (playerTwoTable, card, inde
 
 };
 
+RenderView.prototype.renderEndGame = function (endGameDetails){
+  this.container.innerHtml = "";
+  console.log('Rendering End Game');
+  // add left hand space
+  const endGameDiv = document.createElement('div');
+  endGameDiv.classList.add('end-contents');
+  this.container.appendChild(endGameDiv);
+
+  const endGameText = document.createElement("h2");
+  endGameDiv.classList.add('end-contents-text');
+  endGameText.textContent = "GaMe OvEr";
+  endGameDiv.appendChild(endGameText);
+
+  // main contents
+  // const endContents = document.querySelector('div');
+  // endContents.classList.add('end-contents');
+  //
+  // const endContents = document.querySelector('div');
+  // endContents.classList.add('end-contents');
+  //
+  // const endGame = document.createElement("div");
+  // endGame.classList.add('title');
+  // endGame.textContent = "Leader Board";
+  //
+  // this.container.appendChild(endGame);
+  // endGameDetails.forEach((player) => {
+  //   console.log(player);
+  // });
+
+  // add left hand space
+  const rightSideSpace = docuementSelector('div');
+  rightSide.classList.add('right-side');
+   this.container.appendChild('rightSide');
+
+
+}
+
 module.exports = RenderView;

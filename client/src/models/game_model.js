@@ -10,6 +10,7 @@ const GameModel = function(){
   const deckModel = new DeckModel();
   this.intervalTimer = 0;
   this.deck = deckModel.startBuildingDeck();
+  this.turnCounter = 0;
 
   const player1Hand = deckModel.initializePlayerDecks(this.deck);
   const player2Hand = deckModel.initializePlayerDecks(this.deck);
@@ -27,7 +28,13 @@ const GameModel = function(){
 
     this.changeTurns();
 
-    this.player1.increaseMaxEnergy();
+    console.log("this.turnCounter % 3",this.turnCounter % 3);
+
+    if(this.turnCounter % 3 === 0){
+      this.player1.increaseMaxEnergy();
+      console.log("Increase Max energy");
+    }
+
     this.player1.setEnergy(this.player1.getMaxEnergy());
 
     this.player1.getNewCard();
@@ -51,6 +58,8 @@ GameModel.prototype.changeTurns = function () {
     this.player1.setMyTurn(true);
     this.player2.setMyTurn(false);
   }
+  this.turnCounter += 1;
+  console.log("turn counter",this.turnCounter);
 };
 
 GameModel.prototype.bindEvents = function () {
@@ -201,6 +210,8 @@ GameModel.prototype.processingField = function (attacker,defender) {
         this.publishBattleLogs(`${attacker.getName()} - "killed: " ${weakestCard['type']}`);
         // console.log(attacker.getName(),'killed: ',weakestCard['type']);
 
+        this.publishCardAnimation(weakestCard);
+
         defendingField = defendingField.filter((card)=>{
           if(card !== weakestCard){
             return card;
@@ -214,10 +225,15 @@ GameModel.prototype.processingField = function (attacker,defender) {
   console.log(defender);
 };
 
+GameModel.prototype.publishCardAnimation = function (cardToAnimate){
+  console.log("Card to animate",cardToAnimate['type']);
+  PubSub.publish('GameModel:CardToAnimate');
+}
+
 GameModel.prototype.endGameCheck = function (defender) {
 
   if (defender.healthLeft() <= 0){
-    this.gameOverPublish(attacker);
+    this.gameOverPublish(defender);
     this.endGame = true;
     console.log(defender);
   }
