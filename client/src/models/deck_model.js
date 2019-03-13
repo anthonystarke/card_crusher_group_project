@@ -50,7 +50,7 @@ DeckModel.prototype.startBuildingDeck = function () {
   for(let i = 0; i < 50 ; i++)
   {
     const cardType = this.getCardType();
-    console.log(cardType);
+    // console.log(cardType);
     const abilityType = this.getCardAbilityType();
     if (cardType.includes('ϕ')) {
       const randomHash =

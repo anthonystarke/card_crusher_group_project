@@ -231,8 +231,6 @@ GameModel.prototype.endGameCheck = function (defender) {
 
 GameModel.prototype.gameOverPublish = function (winner) {
 
-<<<<<<< HEAD
-=======
   let playerDetail = {}
   const score = winner;
   playerDetail.name = `${this.player1.name}`
@@ -246,7 +244,6 @@ GameModel.prototype.gameOverPublish = function (winner) {
 
     this.all(playerDetail)
 
->>>>>>> develop
   PubSub.publish("GameModel:GameEnd",winner.getName() === 'player2' ? 'Lose' : 'Win');
 
 };
