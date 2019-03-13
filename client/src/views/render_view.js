@@ -21,13 +21,15 @@ RenderView.prototype.renderPlayerOneCard = function (playerOneStage, player1, ca
   cardName.textContent = card["type"];
   playerBox.appendChild(cardName);
 
-  const cardAttack = document.createElement("h5");
+  const cardAttack = document.createElement("p");
   cardAttack.classList.add('cardAttack')
+  cardAttack.classList.add('invStat')
   cardAttack.textContent = `Attack ${card["attack"]}`;
   playerBox.appendChild(cardAttack);
 
-  const cardDefence = document.createElement("h5");
+  const cardDefence = document.createElement("p");
   cardDefence.classList.add('cardDefence')
+  cardDefence.classList.add('invStat')
   cardDefence.textContent = `Defence ${card["defence"]}`;
   playerBox.appendChild(cardDefence);
   this.cardSelect(playerBox, player1);
@@ -48,12 +50,12 @@ RenderView.prototype.renderPlayerTwoCard = function (playerTwoStage, card, index
   cardName.textContent = card["type"];
   playerBox.appendChild(cardName);
 
-  const cardAttack = document.createElement("h5");
+  const cardAttack = document.createElement("p");
   cardAttack.classList.add('cardAttack')
   cardAttack.textContent = `Attack ${card["attack"]}`;
   playerBox.appendChild(cardAttack);
 
-  const cardDefence = document.createElement("h5");
+  const cardDefence = document.createElement("p");
   cardDefence.classList.add('cardDefence')
   cardDefence.textContent = `Defence ${card["defence"]}`;
   playerBox.appendChild(cardDefence);
@@ -88,12 +90,12 @@ RenderView.prototype.renderPlayerOneTable = function (playerOneTable, card, inde
     cardName.textContent = card["type"];
     playerBox.appendChild(cardName);
 
-    const cardAttack = document.createElement("h5");
+    const cardAttack = document.createElement("p");
     cardAttack.classList.add('cardAttack')
     cardAttack.textContent = `Attack ${card["attack"]}`;
     playerBox.appendChild(cardAttack);
 
-    const cardDefence = document.createElement("h5");
+    const cardDefence = document.createElement("p");
     cardDefence.classList.add('cardDefence')
     cardDefence.textContent = `Defence ${card["defence"]}`;
     playerBox.appendChild(cardDefence);
@@ -113,12 +115,12 @@ RenderView.prototype.renderPlayerTwoTable = function (playerTwoTable, card, inde
   cardName.textContent = card["type"];
   playerBox.appendChild(cardName);
 
-  const cardAttack = document.createElement("h5");
+  const cardAttack = document.createElement("p");
   cardAttack.classList.add('cardAttack')
   cardAttack.textContent = `Attack ${card["attack"]}`;
   playerBox.appendChild(cardAttack);
 
-  const cardDefence = document.createElement("h5");
+  const cardDefence = document.createElement("p");
   cardDefence.classList.add('cardDefence')
   cardDefence.textContent = `Defence ${card["defence"]}`;
   playerBox.appendChild(cardDefence);

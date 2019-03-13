@@ -4,8 +4,30 @@ body {
   font-family: 'Merienda', cursive;
   font-family: 'Cinzel', serif;
   font-family: 'Berkshire Swash', cursive;
+  /* font-family: 'Cinzel', serif; */
   background-color: #fafafa;
   color: #181818;
+}
+
+/* h3{
+  font-size: 1em;
+  margin-top: 1.3em;
+  margin-bottom: 3em;
+} */
+
+h3{
+  font-size: 1em;
+  margin-top: 1.6em;
+  margin-bottom: 2.8em;
+}
+
+p {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  font-size:0.9em;
 }
 
 #start-wrapper{
@@ -68,7 +90,7 @@ body {
 }
 
 #next-turn-wrapper{
-  grid-area: 3 / 5/  4 / 6;
+  grid-area: 3 / 5/  5 / 6;
   display: grid;
   grid-template-columns: repeat(5,fr);
   grid-template-rows: auto;
@@ -76,9 +98,9 @@ body {
 
 .next-turn-button{
   grid-area: 3/2/4/5;
-  border:solid;
+  /* border:solid;
   border-color: black;
-  border-width: 6;
+  border-width: 6; */
 
 }
 
@@ -123,7 +145,7 @@ body {
 .playerCard{
   width: 100px;
   height: 135px;
-  background: url(/images/cards2.png);
+  background: url(/images/cards.png);
   background-size: 420px;
   transition: 1s;
   grid-column:auto;
@@ -159,7 +181,7 @@ body {
 #player-two-charactor{
   grid-area: 1/ 1/ 2/ 6;
   color: white;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   text-align:center;
 }
@@ -175,52 +197,67 @@ body {
   background-color: #a42a1f;
 }
 
+.thunderϕ_h_p1, .vigorϕ_h_p1, .healϕ_h_p1 {
+  background-position: 108px -148px;
+}
+
 .mage_h_p1{
-  background-position: 102px -148px;
+  background-position: 419px -148px;
 }
 
 .fighter_h_p1{
-  background-position: 313px -148px;
+  background-position: 316px -148px;
 }
 
 .rogue_h_p1{
-  background-position: 210px -148px;
+  background-position: 211px -148px;
 }
 
-.mage_h_p2, .fighter_h_p2, .rogue_h_p2 {
+.mage_h_p2, .fighter_h_p2, .rogue_h_p2, .thunderϕ_h_p2, .vigorϕ_h_p2, .healϕ_h_p2  {
   background: url(/images/cardback.png);
   background-size: 106px;
   color: transparent;
 }
 
+/*
+.thunderϕ_f_p2, .vigorϕ_f_p2, .healϕ_f_p2 {
+  background-position: 108px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+} */
+
 .mage_f_p2{
-  background-position: 102px -148px;
+  background-position: 419px -148px;
   box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 .fighter_f_p2{
-  background-position: 313px -148px;
+  background-position: 316px -148px;
   box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 .rogue_f_p2{
-  background-position: 210px -148px;
+  background-position: 211px -148px;
   box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 
+/* .thunderϕ_f_p1, .vigorϕ_f_p1, .healϕ_f_p1 {
+  background-position: 108px -148px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+} */
+
 .mage_f_p1{
-  background-position: 102px -148px;
+  background-position: 419px -148px;
   box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 .fighter_f_p1{
-  background-position: 313px -148px;
+  background-position: 316px -148px;
   box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
 .rogue_f_p1{
-  background-position: 210px -148px;
+  background-position: 211px -148px;
   box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
 }
 
@@ -228,6 +265,10 @@ body {
     float: left;
     margin-left: -60px;
 
+}
+
+  .thunderϕ_h_p1 .invStat, .vigorϕ_h_p1 .invStat, .healϕ_h_p1 .invStat{
+  color: transparent;
 }
 /* #console{
   height:300px;
@@ -294,6 +335,3 @@ body {
 #start-form .required{
 	color:red;
 }
-
-/* need spacers for cards at bottom */
-/* need extra classes to be added for different cards so that theycan be accessed */
