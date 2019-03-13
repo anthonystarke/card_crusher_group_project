@@ -1,6 +1,6 @@
-# Bird Sightings
+# Card Defender
 
-Bird Sightings is a full stack JavaScript application with an Express server and MongoDB database.
+Card Defender is a full stack JavaScript application with an Express server and MongoDB database.
 
 ## Getting Started
 
