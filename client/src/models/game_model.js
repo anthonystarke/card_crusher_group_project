@@ -24,12 +24,7 @@ const GameModel = function(){
 
     this.changeTurns();
 
-    console.log("this.turnCounter % 3",this.turnCounter % 3);
-
-    if(this.turnCounter % 3 === 0){
-      this.player1.increaseMaxEnergy();
-      console.log("Increase Max energy");
-    }
+    console.log("this.turnCounter % 6",this.turnCounter % 3);
 
     this.player1.setEnergy(this.player1.getMaxEnergy());
 
@@ -98,6 +93,13 @@ GameModel.prototype.playerCardCheck = function (player) {
 };
 
 GameModel.prototype.mainGameLoop = function (player1,player2) {
+
+  if(this.turnCounter % 5 === 0){
+    this.player1.increaseMaxEnergy();
+    console.log(this.player1.name,"Increase Max energy");
+    this.player2.increaseMaxEnergy();
+    console.log(this.player2.name,"Increase Max energy");
+  }
 
   if(player2.getMyTurn() === true)
   {
@@ -248,20 +250,20 @@ GameModel.prototype.aiAction = function(self,enemy){
     if(self.accessHand().length > 0)
     {
       const randomChoice = this.getRandomInt(self.accessHand().length-1);
-      this.playerCardCheck(self);
       this.cardAction(randomChoice,self,enemy);
     }
   }
+  this.playerCardCheck(self);
 
   self.getNewCard();
   this.changeTurns();
   this.processingField(self,enemy);
   this.publishData(enemy,self);
 
-  if(this.turnCounter % 3 === 0){
-    self.increaseMaxEnergy();
-    console.log(self.name,"Increase Max energy",self.getMaxEnergy());
-  }
+  // if(this.turnCounter % 5 === 0){
+  //   self.increaseMaxEnergy();
+  //   console.log(self.name,"Increase Max energy",self.getMaxEnergy());
+  // }
   self.setEnergy(self.getMaxEnergy());
 
 };

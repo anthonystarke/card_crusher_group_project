@@ -50,7 +50,7 @@ GameView.prototype.renderPlayers = function (players){
 
   const playerTwoFace = document.createElement('div');
   playerTwoFace.classList.add("player-two");
-  playerTwoFace.textContent = `Player Two Health: ${player2.healthLeft()}`;
+  playerTwoFace.textContent = `Player Two Health: ${player2.healthLeft()} - Energy: ${player2.energy}`;
   playerTwoBase.appendChild(playerTwoFace);
 }
 
