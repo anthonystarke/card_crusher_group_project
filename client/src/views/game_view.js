@@ -32,6 +32,11 @@ const GameView = function (startButton) {
     this.renderEndGame(evt.detail);
     // only has win or lose
   });
+
+  PubSub.subscribe("DbModel:list-ready", (evt) => {
+      console.log('FINAL DATA RECIEVED', evt.detail);
+      this.renderEndGame(evt.detail);
+  });
 }
 
 GameView.prototype.renderPlayers = function (players){
