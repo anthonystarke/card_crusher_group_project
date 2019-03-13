@@ -257,13 +257,33 @@ GameModel.prototype.gameOverPublish = function (winner) {
 
 };
 
-GameModel.prototype.cardAction = function(cardPos,attacker,defender)
-{
+GameModel.prototype.cardAction = function(cardPos,attacker,defender) {
   const playerHand = attacker.accessHand()
   const card = playerHand[cardPos];
   console.log(attacker.getName(),'Played',card['type']);
-  attacker.moveToField(cardPos);
+  if (!card['type'].includes('ϕ')) {
+    attacker.moveToField(cardPos);
+  } else {
+    this.spellAction(card,attacker,defender);
+    attacker.removeCard(cardPos);
+  };
+};
 
+GameModel.prototype.spellAction = function(spell,attacker,defender) {
+  switch (spell['type']) {
+    case 'Healϕ':
+      attacker.takeDamage(-spell['value']);
+      console.log(attacker.getName(), 'was healed by', spell['value'], 'points of health.');
+    break;
+    case 'Thunderϕ':
+      defender.takeDamage(spell['value'])
+      console.log(attacker.getName(), 'did', spell['value'], 'points of damage to', defender.getName(),'with', spell['type']);
+    break;
+    case 'Vigorϕ':
+      attacker.increaseEnergy(2);
+      console.log(attacker.getName(),'recieved 2 energy from', spell['type']);
+    break;
+  }
 };
 
 GameModel.prototype.getRandomInt = function(max) {

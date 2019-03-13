@@ -21,6 +21,10 @@ PlayerModel.prototype.reduceEnergy = function () {
   this.energy -= 1;
 };
 
+PlayerModel.prototype.increaseEnergy = function (amount) {
+  this.energy += amount
+};
+
 PlayerModel.prototype.getMaxEnergy = function () {
   return this.maxEnergy;
 };
