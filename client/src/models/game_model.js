@@ -1,6 +1,5 @@
 const PlayerModel = require("./player_model.js");
 const DeckModel = require("./deck_model.js");
-const DbModel = require("./db_model.js");
 const PubSub = require('../helpers/pub_sub.js');
 const RequestHelper = require("../helpers/request_helper.js")
 
