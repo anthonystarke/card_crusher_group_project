@@ -127,35 +127,35 @@ RenderView.prototype.renderPlayerTwoTable = function (playerTwoTable, card, inde
 
 RenderView.prototype.renderEndGame = function (endGameDetails){
   this.container.innerHtml = "";
-  console.log('Rendering End Game!!!!!', endGameDetails);
-  const endGameDiv = document.createElement('div');
-  endGameDiv.classList.add('end-contents');
-  this.container.appendChild(endGameDiv);
+  if (endGameDetails['name']) {
+    console.log('Rendering End Game!!!!!', endGameDetails);
+    const endGameDiv = document.createElement('div');
+    endGameDiv.classList.add('end-contents');
+    this.container.appendChild(endGameDiv);
 
-  const endGameText = document.createElement("h1");
-  endGameDiv.classList.add('end-contents-text');
-  endGameText.textContent = "GaMe OvEr";
-  endGameDiv.appendChild(endGameText);
+    const endGameText = document.createElement("h1");
+    endGameDiv.classList.add('end-contents-text');
+    endGameText.textContent = "GaMe OvEr";
+    endGameDiv.appendChild(endGameText);
 
-  const endGameName = document.createElement("h2");
-  endGameDiv.classList.add('end-contents-text');
-  endGameName.textContent = `Player Name: ${endGameDetails['name']}`;
-  endGameDiv.appendChild(endGameName);
+    const endGameName = document.createElement("h2");
+    endGameDiv.classList.add('end-contents-text');
+    endGameName.textContent = `Player Name: ${endGameDetails['name']}`;
+    endGameDiv.appendChild(endGameName);
 
-  const endGameWin = document.createElement("h3");
-  endGameDiv.classList.add('end-contents-text');
-  endGameWin.textContent = `Games Won: ${endGameDetails['winScore']}`;
-  endGameDiv.appendChild(endGameWin);
+    const endGameWin = document.createElement("h3");
+    endGameDiv.classList.add('end-contents-text');
+    endGameWin.textContent = `Games Won: ${endGameDetails['winScore']}`;
+    endGameDiv.appendChild(endGameWin);
 
-  const endGameLose = document.createElement("h3");
-  endGameDiv.classList.add('end-contents-text');
-  endGameLose.textContent = `Games Lost: ${endGameDetails['loseScore']}`;
-  endGameDiv.appendChild(endGameLose);
-  const rightSideSpace = documentSelector('div');
-  rightSide.classList.add('right-side');
-   this.container.appendChild('rightSide');
-
-
-}
+    const endGameLose = document.createElement("h3");
+    endGameDiv.classList.add('end-contents-text');
+    endGameLose.textContent = `Games Lost: ${endGameDetails['loseScore']}`;
+    endGameDiv.appendChild(endGameLose);
+    const rightSideSpace = documentSelector('div');
+    rightSide.classList.add('right-side');
+    this.container.appendChild('rightSide');
+   };
+};
 
 module.exports = RenderView;
