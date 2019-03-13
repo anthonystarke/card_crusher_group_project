@@ -325,7 +325,7 @@ GameModel.prototype.update = function (playerNewDetails) {
       console.log(this.items);
       const playerRenderInfo = this.items.find((player) => playerNewDetails.name === player.name);
       console.log(playerRenderInfo);
-      PubSub.publish('DbModel:list-ready', this.items);
+      PubSub.publish('DbModel:list-ready', playerRenderInfo);
     })
   .catch((err) => console.error(err));
 };
@@ -338,7 +338,7 @@ GameModel.prototype.add = function (playerDetail) {
       console.log(this.items);
       const playerRenderInfo = this.items.find((player) => playerDetail.name === player.name);
       console.log(playerRenderInfo);
-      PubSub.publish('DbModel:list-ready', this.items);
+      PubSub.publish('DbModel:list-ready', playerRenderInfo);
     })
   .catch((err) => console.error(err));
 };
