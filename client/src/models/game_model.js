@@ -1,6 +1,7 @@
 const PlayerModel = require("./player_model.js");
 const DeckModel = require("./deck_model.js");
 const PubSub = require('../helpers/pub_sub.js');
+const RequestHelper = require("../helpers/request_helper.js")
 
 const GameModel = function(){
 
@@ -18,6 +19,8 @@ const GameModel = function(){
 
   this.flipCoin(this.player1,this.player2); //decide whos turn it is
   console.log(this.player1.getMyTurn(),this.player2.getMyTurn());
+  this.items = []
+  this.request = new RequestHelper('/api/cardcrusher');
 
   const nextTurn = document.querySelector('#next-turn-wrapper');
   nextTurn.addEventListener('click',(evt) => {
@@ -56,6 +59,7 @@ GameModel.prototype.changeTurns = function () {
 GameModel.prototype.bindEvents = function () {
   PubSub.subscribe('GameView:Start-Game',(evt)=>{
 
+    this.player1.name = evt.detail;
     this.publishData(this.player1,this.player2);
     this.mainGameLoop(this.player1,this.player2)
     // setInterval(() => {this.mainGameLoop(this.player1,this.player2)},250);
@@ -209,6 +213,7 @@ GameModel.prototype.processingField = function (attacker,defender) {
   })
   defender.updatePlayerField(defendingField);
   this.endGameCheck(defender)
+  console.log(defender);
 };
 
 GameModel.prototype.publishCardAnimation = function (cardToAnimate){
@@ -226,16 +231,53 @@ GameModel.prototype.endGameCheck = function (defender) {
 
 GameModel.prototype.gameOverPublish = function (winner) {
 
+<<<<<<< HEAD
+=======
+  let playerDetail = {}
+  const score = winner;
+  playerDetail.name = `${this.player1.name}`
+    if(score.name === "player2"){
+      playerDetail.winScore = 1;
+      playerDetail.loseScore = 0;
+    } else {
+      playerDetail.winScore = 0;
+      playerDetail.loseScore = 1;
+    }
+
+    this.all(playerDetail)
+
+>>>>>>> develop
   PubSub.publish("GameModel:GameEnd",winner.getName() === 'player2' ? 'Lose' : 'Win');
+
 };
 
-GameModel.prototype.cardAction = function(cardPos,attacker,defender)
-{
+GameModel.prototype.cardAction = function(cardPos,attacker,defender) {
   const playerHand = attacker.accessHand()
   const card = playerHand[cardPos];
   console.log(attacker.getName(),'Played',card['type']);
-  attacker.moveToField(cardPos);
+  if (!card['type'].includes('ϕ')) {
+    attacker.moveToField(cardPos);
+  } else {
+    this.spellAction(card,attacker,defender);
+    attacker.removeCard(cardPos);
+  };
+};
 
+GameModel.prototype.spellAction = function(spell,attacker,defender) {
+  switch (spell['type']) {
+    case 'Healϕ':
+      attacker.takeDamage(-spell['value']);
+      console.log(attacker.getName(), 'was healed by', spell['value'], 'points of health.');
+    break;
+    case 'Thunderϕ':
+      defender.takeDamage(spell['value'])
+      console.log(attacker.getName(), 'did', spell['value'], 'points of damage to', defender.getName(),'with', spell['type']);
+    break;
+    case 'Vigorϕ':
+      attacker.increaseEnergy(2);
+      console.log(attacker.getName(),'recieved 2 energy from', spell['type']);
+    break;
+  }
 };
 
 GameModel.prototype.getRandomInt = function(max) {
@@ -267,5 +309,65 @@ GameModel.prototype.aiAction = function(self,enemy){
   self.setEnergy(self.getMaxEnergy());
 
 };
+
+GameModel.prototype.all = function (playerDetail) {
+  const playerName = playerDetail.name
+  this.request
+    .get()
+    .then((listItems) => {
+      this.items = listItems;
+      console.log(this.items);
+      PubSub.publish('DbModel:list-ready', this.items);
+      let updated = false
+      this.items.forEach((player) => {
+        if(playerName === player.name) {
+          console.log("updateCalled");
+          updated = true
+          const playerNewDetails = {
+            _id: player._id,
+            name: playerName,
+            winScore: playerDetail.winScore + player.winScore,
+            loseScore:playerDetail.loseScore + player.loseScore
+          }
+          this.update(playerNewDetails)
+      }
+    })
+      if (updated === false){
+      this.add(playerDetail)
+      }
+
+    })
+      .catch((err) => console.error(err));
+  }
+
+
+GameModel.prototype.update = function (playerNewDetails) {
+  const id = playerNewDetails._id;
+  console.log(id,playerNewDetails);
+  this.request
+    .put(id, playerNewDetails)
+    .then((listItems) => {
+      this.items = listItems;
+      console.log(this.items);
+      const playerRenderInfo = this.items.find((player) => playerNewDetails.name === player.name);
+      console.log(playerRenderInfo);
+      PubSub.publish('DbModel:list-ready', playerRenderInfo);
+    })
+  .catch((err) => console.error(err));
+};
+
+GameModel.prototype.add = function (playerDetail) {
+  this.request
+    .post(playerDetail)
+    .then((listItems) => {
+      this.items = listItems;
+      console.log(this.items);
+      const playerRenderInfo = this.items.find((player) => playerDetail.name === player.name);
+      console.log(playerRenderInfo);
+      PubSub.publish('DbModel:list-ready', playerRenderInfo);
+    })
+  .catch((err) => console.error(err));
+};
+
 
 module.exports = GameModel;

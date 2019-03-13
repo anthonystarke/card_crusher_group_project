@@ -4,6 +4,7 @@ const RenderView = require('./render_view.js');
 
 
 const GameView = function (startButton) {
+
   this.startButton = startButton;
 };
 
@@ -11,7 +12,7 @@ const GameView = function (startButton) {
 
   this.startButton.addEventListener('submit',(evt) => {
     evt.preventDefault();
-    const userName = evt.target.username.value;
+    const userName = evt.target['username'].value;
     PubSub.publish("GameView:Start-Game",userName);
     const startWrapper = document.getElementById('start-wrapper')
     // document.body.removeChild(startWrapper)
@@ -30,6 +31,11 @@ const GameView = function (startButton) {
     wrapper.parentNode.removeChild(wrapper);
     this.renderEndGame(evt.detail);
     // only has win or lose
+  });
+
+  PubSub.subscribe("DbModel:list-ready", (evt) => {
+      console.log('FINAL DATA RECIEVED', evt.detail);
+      this.renderEndGame(evt.detail);
   });
 }
 
@@ -118,4 +124,4 @@ GameView.prototype.renderEndGame = function (endGameDets) {
 };
 
 
-module.exports = GameView;
+  module.exports = GameView;
