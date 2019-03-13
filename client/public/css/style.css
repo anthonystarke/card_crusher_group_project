@@ -9,6 +9,27 @@ body {
   color: #181818;
 }
 
+/* h3{
+  font-size: 1em;
+  margin-top: 1.3em;
+  margin-bottom: 3em;
+} */
+
+h3{
+  font-size: 1em;
+  margin-top: 1.6em;
+  margin-bottom: 2.8em;
+}
+
+p {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  font-size:0.9em;
+}
+
 #start-wrapper{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
