@@ -241,13 +241,19 @@ GameModel.prototype.gameOverPublish = function (winner) {
   PubSub.publish("GameModel:GameEnd",winner.getName() === 'player2' ? 'Lose' : 'Win');
 };
 
-GameModel.prototype.cardAction = function(cardPos,attacker,defender)
-{
+GameModel.prototype.cardAction = function(cardPos,attacker,defender) {
   const playerHand = attacker.accessHand()
   const card = playerHand[cardPos];
-  console.log(attacker.getName(),'Played',card['type']);
-  attacker.moveToField(cardPos);
-
+  switch (card['type']) {
+    case 'Heal':
+      attacker.takeDamage(-4)
+      attacker.removeCard(cardPos);
+    break;
+    default:
+      attacker.moveToField(cardPos);
+      console.log(attacker.getName(),'Played',card['type']);
+    break;
+  }
 };
 
 GameModel.prototype.getRandomInt = function(max) {

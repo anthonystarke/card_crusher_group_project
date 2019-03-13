@@ -9,20 +9,23 @@ DeckModel.prototype.getCard = function (deck) {
 
 DeckModel.prototype.getCardType = function () {
 
-  const rand = this.getRandomInt(4)
+  const rand = this.getRandomInt(5)
   let cardName;
   switch (rand) {
-    case 0:
-      cardName = "Fighter";
-      break;
     case 1:
       cardName = "Mage";
       break;
     case 2:
       cardName = "Rogue";
       break;
+    case 3:
+      cardName = "Heal";
+      break;
+    case 4:
+      cardName = "Fighter";
+      break;
     default:
-      cardName = "Fighter"
+      cardName = "Fighter";
       break;
     }
     return cardName;
@@ -42,13 +45,26 @@ DeckModel.prototype.startBuildingDeck = function () {
   {
     const cardType = this.getCardType();
     const abilityType = this.getCardAbilityType();
-    const randomHash = {
-      type: cardType,
-      attack: this.getRandomInt(5),
-      defence: this.getRandomInt(5),
-      abilities: abilityType
-      }
-    deckOfCards.push(randomHash);
+    console.log(cardType);
+    if (cardType === "Heal") {
+      const randomHash =
+        {
+          type: cardType,
+          effect: "Heal yourself",
+          value: 4
+        };
+        deckOfCards.push(randomHash);
+
+    } else {
+      const randomHash = {
+        type: cardType,
+        attack: this.getRandomInt(5),
+        defence: this.getRandomInt(5),
+        abilities: abilityType
+      };
+      deckOfCards.push(randomHash);
+
+    }
   }
   return deckOfCards;
 };
