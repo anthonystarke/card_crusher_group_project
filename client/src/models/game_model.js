@@ -235,19 +235,23 @@ GameModel.prototype.endGameCheck = function (defender) {
   if (defender.healthLeft() <= 0){
     this.gameOverPublish(defender);
     this.endGame = true;
-    console.log(defender);
   }
 };
 
 GameModel.prototype.gameOverPublish = function (winner) {
-  console.log(winner);
-  // add model that interacts with the database --> which would return the wanted data to go to the view
-  // gameDB = new GameDBModel('John');
-  // gameDB.connectToDB();
-  // data = gameDB.data();
-  const player = {}
 
-  this.all(this.player1.name);
+  let playerDetail = {}
+  const score = winner;
+  playerDetail.name = `${this.player1.name}`
+    if(score.name === "player2"){
+      playerDetail.winScore = 1;
+      playerDetail.loseScore = 0;
+    } else {
+      playerDetail.winScore = 0;
+      playerDetail.loseScore = 1;
+    }
+
+    this.all(playerDetail)
 
   PubSub.publish("GameModel:GameEnd",winner.getName() === 'player2' ? 'Lose' : 'Win');
 
@@ -280,8 +284,8 @@ GameModel.prototype.aiAction = function(self,enemy){
   this.publishData(enemy,self);
 };
 
-GameModel.prototype.all = function (playerName) {
-  console.log(playerName);
+GameModel.prototype.all = function (playerDetail) {
+  const playerName = playerDetail.name
   this.request
     .get()
     .then((listItems) => {
@@ -293,24 +297,17 @@ GameModel.prototype.all = function (playerName) {
         if(playerName === player.name) {
           console.log("updateCalled");
           updated = true
-          //
-          //
-          // const winScore = player.winScore += 1
-          //
-          // const loseScore = player.loseScore += 1
-          //
-
-          const newPlayer = {
+          const newPlayerInfo = {
             _id: player._id,
             name: playerName,
-            winScore: winScore,
-            loseScore:loseScore
+            winScore: playerDetail.winScore + player.winScore,
+            loseScore:playerDetail.loseScore + player.loseScore
           }
-          this.update(newPlayer)
+          this.update(newPlayerInfo)
       }
     })
       if (updated === false){
-      this.add(newPlayer)
+      this.add(playerDetail)
       }
 
     })
@@ -325,6 +322,7 @@ GameModel.prototype.update = function (playerDetail) {
     .put(id, playerDetail)
     .then((listItems) => {
       this.items = listItems;
+      console.log(this.items);
       PubSub.publish('DbModel:list-ready', this.items);
     })
   .catch((err) => console.error(err));
@@ -335,6 +333,7 @@ GameModel.prototype.add = function (playerName) {
     .post(playerName)
     .then((listItems) => {
       this.items = listItems;
+      console.log(this.items);
       PubSub.publish('DbModel:list-ready', this.items);
     })
   .catch((err) => console.error(err));

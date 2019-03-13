@@ -4,19 +4,14 @@ body {
   font-family: 'Merienda', cursive;
   font-family: 'Cinzel', serif;
   font-family: 'Berkshire Swash', cursive;
-  /* background: url(/images/HallowEndBoard.png) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; */
   background-color: #fafafa;
   color: #181818;
 }
 
 #start-wrapper{
   display: grid;
-  grid-template-columns: 150px repeat(3, 1fr) 150px;
-  grid-template-rows: 30px 150px 150px 150px 150px 30px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows:repeat(3, 1fr);
   background: url(/images/HallowBoard3.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -27,23 +22,37 @@ body {
 }
 
 #start-form{
-  grid-area: 4 / 2 / 5 / 3;
+  /* grid-area: 2; */
+  grid-column: 2;
+  grid-row: 2;
+
 }
 
-/* h3 {
-  display: block;
-  font-size: 1.17em;
-  margin-top: 3em;
-  margin-bottom:0;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
+#end-wrapper{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  background: url(/images/HallowBoard3.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
 }
 
-h5{
-  margin:0px;
-  padding:0px;
-}  */
+.end-contents{
+  grid-column: 2;
+  grid-row:2;
+  background-color: #62639b;
+  text-align:center;
+  opacity:0.5;
+  border-radius:20%;
+}
+
+.end-contents-text{
+
+}
 
 #wrapper{
   background: url(/images/HallowBoard3.jpg) no-repeat center center fixed;
@@ -62,7 +71,7 @@ h5{
   grid-area: 3 / 5/  4 / 6;
   display: grid;
   grid-template-columns: repeat(5,fr);
-  gird-template-rows: auto;
+  grid-template-rows: auto;
 }
 
 .next-turn-button{
@@ -144,6 +153,7 @@ h5{
   text-align:center;
   color: white;
   background-color: #a42a1f;
+  z-index: 99 !important;
 }
 
 #player-two-charactor{
@@ -219,16 +229,19 @@ h5{
     margin-left: -60px;
 
 }
-
-/* input[type=submit] {
-    border: 1px solid #bfbfbf;
-    padding: 7px;
-    margin-top: 1rem;
-    outline: none;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+/* #console{
+  height:300px;
+  width:300px;
+  border:1px solid #ccc;
+  font:16px/26px Georgia, Garamond, Serif;
+  overflow:auto;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color:#7877bd;
+  color:white;
+  z-index:1;
 } */
-
 
 #start-form {
 	/* margin:10px auto; */
