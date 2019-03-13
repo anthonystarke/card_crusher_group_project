@@ -244,14 +244,20 @@ GameModel.prototype.gameOverPublish = function (winner) {
 GameModel.prototype.cardAction = function(cardPos,attacker,defender) {
   const playerHand = attacker.accessHand()
   const card = playerHand[cardPos];
-  switch (card['type']) {
+  console.log(attacker.getName(),'Played',card['type']);
+  if (card['type'] === 'Mage' || card['type'] === 'Rogue' || card['type'] === 'Fighter') {
+    attacker.moveToField(cardPos);
+  } else {
+    this.spellAction(card,attacker,defender);
+    attacker.removeCard(cardPos);
+  };
+};
+
+GameModel.prototype.spellAction = function(spell,attacker,defender) {
+  switch (spell['type']) {
     case 'Heal':
-      attacker.takeDamage(-4)
-      attacker.removeCard(cardPos);
-    break;
-    default:
-      attacker.moveToField(cardPos);
-      console.log(attacker.getName(),'Played',card['type']);
+      attacker.takeDamage(-spell['value']);
+      console.log(attacker.getName(), 'was healed by', spell['value'], 'points of health.');
     break;
   }
 };

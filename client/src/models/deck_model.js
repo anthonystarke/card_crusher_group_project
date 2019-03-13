@@ -51,7 +51,7 @@ DeckModel.prototype.startBuildingDeck = function () {
         {
           type: cardType,
           effect: "Heal yourself",
-          value: 4
+          value: this.getRandomInt(5)
         };
         deckOfCards.push(randomHash);
 
