@@ -11,12 +11,19 @@
 
   </head>
   <body>
+
+    <div id = "start-wrapper">
+      <form id="start-form">
+
+        <label for="title">Name</label>
+        <input type="text" id="username" required/>
+
+        <input type="submit" id = "start-game" value = "Start"/>
+      </form>
+    </div>
+
     <div id ="wrapper">
-
-      <button id="start-game">Start Game</button>
-      <!-- <button></button> -->
-      <h1 id="title-main">Card Defenders</h1>
-
+      <div id = "next-turn-wrapper"><span class = 'next-turn-button'></span></div>
       <div id="player-two-charactor"></div>
       <div id="player-two-container"></div>
       <div id="player-two-table"></div>
@@ -24,7 +31,14 @@
       <div id="player-one-table"></div>
       <div id="player-one-container"></div>
       <div id="player-one-charactor"></div>
-  </div>
+      <!-- <div id ="console"></div> -->
+    </div>
 
+    <div id ="end-wrapper">
+      <!-- <div id = "left-side"></div>
+      <div id = "end-contents">GAME OVER</div>
+      <div id = "right-side"></div> -->
+    </div>
   </body>
+
 </html>
