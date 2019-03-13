@@ -297,13 +297,13 @@ GameModel.prototype.all = function (playerDetail) {
         if(playerName === player.name) {
           console.log("updateCalled");
           updated = true
-          const newPlayerInfo = {
+          const playerNewDetails = {
             _id: player._id,
             name: playerName,
             winScore: playerDetail.winScore + player.winScore,
             loseScore:playerDetail.loseScore + player.loseScore
           }
-          this.update(newPlayerInfo)
+          this.update(playerNewDetails)
       }
     })
       if (updated === false){
@@ -315,25 +315,29 @@ GameModel.prototype.all = function (playerDetail) {
   }
 
 
-GameModel.prototype.update = function (playerDetail) {
-  const id = playerDetail._id;
-  console.log(id,playerDetail);
+GameModel.prototype.update = function (playerNewDetails) {
+  const id = playerNewDetails._id;
+  console.log(id,playerNewDetails);
   this.request
-    .put(id, playerDetail)
+    .put(id, playerNewDetails)
     .then((listItems) => {
       this.items = listItems;
       console.log(this.items);
+      const playerRenderInfo = this.items.find((player) => playerNewDetails.name === player.name);
+      console.log(playerRenderInfo);
       PubSub.publish('DbModel:list-ready', this.items);
     })
   .catch((err) => console.error(err));
 };
 
-GameModel.prototype.add = function (playerName) {
+GameModel.prototype.add = function (playerDetail) {
   this.request
-    .post(playerName)
+    .post(playerDetail)
     .then((listItems) => {
       this.items = listItems;
       console.log(this.items);
+      const playerRenderInfo = this.items.find((player) => playerDetail.name === player.name);
+      console.log(playerRenderInfo);
       PubSub.publish('DbModel:list-ready', this.items);
     })
   .catch((err) => console.error(err));

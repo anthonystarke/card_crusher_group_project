@@ -155,7 +155,7 @@ RenderView.prototype.renderEndGame = function (endGameDetails){
   // });
 
   // add left hand space
-  const rightSideSpace = docuementSelector('div');
+  const rightSideSpace = documentSelector('div');
   rightSide.classList.add('right-side');
    this.container.appendChild('rightSide');
 
