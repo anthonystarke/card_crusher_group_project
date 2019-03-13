@@ -23,11 +23,13 @@ RenderView.prototype.renderPlayerOneCard = function (playerOneStage, player1, ca
 
   const cardAttack = document.createElement("h5");
   cardAttack.classList.add('cardAttack')
+  cardAttack.classList.add('invStat')
   cardAttack.textContent = `Attack ${card["attack"]}`;
   playerBox.appendChild(cardAttack);
 
   const cardDefence = document.createElement("h5");
   cardDefence.classList.add('cardDefence')
+  cardDefence.classList.add('invStat')
   cardDefence.textContent = `Defence ${card["defence"]}`;
   playerBox.appendChild(cardDefence);
   this.cardSelect(playerBox, player1);
