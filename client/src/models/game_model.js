@@ -259,6 +259,14 @@ GameModel.prototype.spellAction = function(spell,attacker,defender) {
       attacker.takeDamage(-spell['value']);
       console.log(attacker.getName(), 'was healed by', spell['value'], 'points of health.');
     break;
+    case 'Thunderϕ':
+      defender.takeDamage(spell['value'])
+      console.log(attacker.getName(), 'did', spell['value'], 'points of damage to', defender.getName(),'with', spell['type']);
+    break;
+    case 'Vigorϕ':
+      attacker.increaseEnergy(2);
+      console.log(attacker.getName(),'recieved 2 energy from', spell['type']);
+    break;
   }
 };
 
