@@ -245,7 +245,7 @@ GameModel.prototype.cardAction = function(cardPos,attacker,defender) {
   const playerHand = attacker.accessHand()
   const card = playerHand[cardPos];
   console.log(attacker.getName(),'Played',card['type']);
-  if (card['type'] === 'Mage' || card['type'] === 'Rogue' || card['type'] === 'Fighter') {
+  if (!card['type'].includes('ϕ')) {
     attacker.moveToField(cardPos);
   } else {
     this.spellAction(card,attacker,defender);
@@ -255,7 +255,7 @@ GameModel.prototype.cardAction = function(cardPos,attacker,defender) {
 
 GameModel.prototype.spellAction = function(spell,attacker,defender) {
   switch (spell['type']) {
-    case 'Heal':
+    case 'Healϕ':
       attacker.takeDamage(-spell['value']);
       console.log(attacker.getName(), 'was healed by', spell['value'], 'points of health.');
     break;

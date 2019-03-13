@@ -19,10 +19,13 @@ DeckModel.prototype.getCardType = function () {
       cardName = "Rogue";
       break;
     case 3:
-      cardName = "Heal";
+      cardName = "Fighter";
       break;
     case 4:
-      cardName = "Fighter";
+      cardName = "Healϕ";
+      break;
+    case 5:
+      cardName = "Thunderϕ";
       break;
     default:
       cardName = "Fighter";
@@ -45,8 +48,7 @@ DeckModel.prototype.startBuildingDeck = function () {
   {
     const cardType = this.getCardType();
     const abilityType = this.getCardAbilityType();
-    console.log(cardType);
-    if (cardType === "Heal") {
+    if (cardType.includes('ϕ')) {
       const randomHash =
         {
           type: cardType,
@@ -54,7 +56,6 @@ DeckModel.prototype.startBuildingDeck = function () {
           value: this.getRandomInt(5)
         };
         deckOfCards.push(randomHash);
-
     } else {
       const randomHash = {
         type: cardType,
