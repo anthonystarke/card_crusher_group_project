@@ -4,10 +4,9 @@ const RenderView = function (container) {
   this.container = container;
 };
 
-
 RenderView.prototype.renderPlayerOneCard = function (playerOneStage, player1, card, index) {
   const playerBox = document.createElement("div");
-  const cardType = card['type'].toLowerCase();
+  const cardType = card.type.toLowerCase();
   const monsterClass = cardType.concat('_h_p1');
 
   playerBox.classList.add('playerCard');
@@ -18,19 +17,19 @@ RenderView.prototype.renderPlayerOneCard = function (playerOneStage, player1, ca
 
   const cardName = document.createElement("h3");
   cardName.classList.add('cardName')
-  cardName.textContent = card["type"];
+  cardName.textContent = card.type;
   playerBox.appendChild(cardName);
 
   const cardAttack = document.createElement("p");
   cardAttack.classList.add('cardAttack')
   cardAttack.classList.add('invStat')
-  cardAttack.textContent = `Attack ${card["attack"]}`;
+  cardAttack.textContent = `Attack ${card.attack}`;
   playerBox.appendChild(cardAttack);
-
+  //
   const cardDefence = document.createElement("p");
   cardDefence.classList.add('cardDefence')
   cardDefence.classList.add('invStat')
-  cardDefence.textContent = `Defence ${card["defence"]}`;
+  cardDefence.textContent = `Defence ${card.defence}`;
   playerBox.appendChild(cardDefence);
   this.cardSelect(playerBox, player1);
 };

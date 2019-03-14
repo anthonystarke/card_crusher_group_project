@@ -68,6 +68,8 @@ GameView.prototype.renderStage = function (players) {
   const playerTwoStage = document.querySelector("#player-two-container");
 
   const player1Hand = player1.accessHand();
+  // console.log(player1Hand);
+  // player1Hand.forEach((card,index)=> console.log(card));
   this.renderPlayer1Card(playerOneStage, player1Hand, player1)
 
   const player2Hand = player2.accessHand();
@@ -90,7 +92,11 @@ GameView.prototype.renderTable= function (players) {
 GameView.prototype.renderPlayer1Card = function (playerOneStage, player1Hand, player1) {
   playerOneStage.innerHTML = '';
   const renderPlayerOneStageView = new RenderView(playerOneStage);
-  player1Hand.forEach((card,index) => renderPlayerOneStageView.renderPlayerOneCard(playerOneStage, player1, card, index));
+  
+  player1Hand.forEach((card,index) =>
+  {
+    renderPlayerOneStageView.renderPlayerOneCard(playerOneStage,player1,card,index);
+  });
 };
 
 GameView.prototype.renderPlayer2Card = function (playerTwoStage, player2Hand) {

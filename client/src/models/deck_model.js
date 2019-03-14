@@ -1,3 +1,5 @@
+const CardModel = require('./card_model.js');
+
 const DeckModel = function(){
 
 }
@@ -41,6 +43,7 @@ DeckModel.prototype.getCardAbilityType = function () {
 
   const rand = this.getRandomInt(2)
   return rand === 1 ? "active": "passive"
+  
 };
 
 DeckModel.prototype.startBuildingDeck = function () {
@@ -59,15 +62,22 @@ DeckModel.prototype.startBuildingDeck = function () {
           effect: "Spell Power",
           value: this.getRandomInt(5)
         };
-        deckOfCards.push(randomHash);
+
+        const newCard = new CardModel(randomHash);
+        deckOfCards.push(newCard);
+
     } else {
+
       const randomHash = {
         type: cardType,
         attack: this.getRandomInt(5),
         defence: this.getRandomInt(5),
         abilities: abilityType
+
       };
-      deckOfCards.push(randomHash);
+
+      const newCard = new CardModel(randomHash);
+      deckOfCards.push(newCard);
 
     }
   }

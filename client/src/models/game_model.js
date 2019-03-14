@@ -14,6 +14,8 @@ const GameModel = function(){
   const player1Hand = deckModel.initializePlayerDecks(this.deck);
   const player2Hand = deckModel.initializePlayerDecks(this.deck);
 
+  // console.log(player1Hand[0]);
+
   this.player1 = new PlayerModel(player1Hand,"Player1");
   this.player2 = new PlayerModel(player2Hand,"Player2");
 
@@ -332,7 +334,6 @@ GameModel.prototype.all = function (playerDetail) {
       if (updated === false){
       this.add(playerDetail)
       }
-
     })
       .catch((err) => console.error(err));
   }
