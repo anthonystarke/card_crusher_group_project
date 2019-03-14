@@ -235,11 +235,11 @@ GameModel.prototype.gameOverPublish = function (winner) {
   const score = winner;
   playerDetail.name = `${this.player1.name}`
     if(score.name === "player2"){
-      playerDetail.winScore = 1;
-      playerDetail.loseScore = 0;
-    } else {
       playerDetail.winScore = 0;
       playerDetail.loseScore = 1;
+    } else {
+      playerDetail.winScore = 1;
+      playerDetail.loseScore = 0;
     }
 
     this.all(playerDetail)
