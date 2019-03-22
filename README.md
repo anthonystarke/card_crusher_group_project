@@ -1,6 +1,8 @@
 # Card Defender
 
-Card Defender is a full stack JavaScript application with an Express server and MongoDB database.
+Card Defender is Card Battle game based on Hearthstone and magic the gathering 3 different types of fighter cards and 3 different types of spell cards. Currently 1 player vs an AI opponent. 
+
+The game is made as a full stack JavaScript application with an Express server and MongoDB database.
 
 ## Getting Started
 
